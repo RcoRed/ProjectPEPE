@@ -1,28 +1,66 @@
 package org.generation.italy.ProjectPEPE.model.entities;
 
+import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
+import jakarta.persistence.*;
 import org.generation.italy.ProjectPEPE.model.entities.enums.AvgCost;
 import org.generation.italy.ProjectPEPE.model.entities.enums.Diet;
 import org.generation.italy.ProjectPEPE.model.entities.enums.Difficulty;
 import org.generation.italy.ProjectPEPE.model.entities.enums.Dish;
+import org.hibernate.annotations.Type;
 
 import java.util.Set;
 
+@Entity
+@Table(name = "recipe")
 public class Recipe {
+    @Id
+    @Column(name = "id_recipe")
+    @GeneratedValue(generator = "recipe_generator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "recipe_generator", sequenceName = "recipe_sequence", allocationSize = 1)
     private long id;
+
     private String name;
     private String description;
+
+    @Column(name = "to_cook")
     private boolean toCook;
+
+    @Column(name = "image_file_path")
     private String imageFilePath;
+
     //totali
+    @Column(name = "tot_nutritional_value")
     private int totNutritionalValue;
+
+    @Column(name = "tot_preparation_time")
     private int totPreparationTime;
+
+    @Column(name = "number_ingredient")
     private int numberIngredient;
+
     //enum
+    @Column(name = "total_cost", columnDefinition = "AVG_COST")
+    @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private AvgCost totalCost;
+
+    @Column(columnDefinition = "DIFFICULTY")
+    @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private Difficulty difficulty;
+
+    @Column(columnDefinition = "DIET")
+    @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private Diet diet;
+
+    @Column(columnDefinition = "DISH")
+    @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private Dish dish;
+
     //è un set!!!
+    @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<FoodOptional> ingredientList;
 
     public Recipe() {
@@ -148,5 +186,19 @@ public class Recipe {
 
     public void setIngredientList(Set<FoodOptional> ingredientList) {
         this.ingredientList = ingredientList;
+    }
+
+    private AvgCost calculateAvgCost(){
+        double avg;
+        int total = 0;
+        for(FoodOptional f : ingredientList){
+            if(f.getFood().getAvgCost().equals(AvgCost.EXOTIC)){
+                return AvgCost.EXOTIC;
+            }
+            total += f.getFood().getAvgCost().getCostLevel();
+        }
+        avg = total / ingredientList.size();
+
+        return AvgCost.getEnumByValue(avg);
     }
 }

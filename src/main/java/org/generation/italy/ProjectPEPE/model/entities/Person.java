@@ -1,33 +1,71 @@
 package org.generation.italy.ProjectPEPE.model.entities;
 
+import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
+import jakarta.persistence.*;
 import org.generation.italy.ProjectPEPE.model.entities.enums.Diet;
 import org.generation.italy.ProjectPEPE.model.entities.enums.PhisicalActivity;
 import org.generation.italy.ProjectPEPE.model.entities.enums.Sex;
 import org.generation.italy.ProjectPEPE.model.entities.enums.Work;
+import org.hibernate.annotations.Type;
 
 import java.util.Map;
 import java.util.Set;
 
+@Entity
+@Table(name = "person")
 public class Person {
     //dati generali user
+    @Id
+    @Column(name = "person_id")
+    @GeneratedValue(generator = "person_generator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "person_generator", sequenceName = "person_sequence", allocationSize = 1)
     private long id;
+
     private String firstname;
     private String lastname;
     private int age;
     private int weight;
     private int height;
+
     //enum
+    @Column(columnDefinition = "SEX")
+    @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private Sex sex;
+
+    @Column(columnDefinition = "WORK")
+    @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private Work work;
+
+    @Column(columnDefinition = "DIET")
+    @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private Diet diet;
+
+    @Column(name = "phisical_activity", columnDefinition = "PHISICAL_ACTIVITY")
+    @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private PhisicalActivity phisicalActivity;
     //da calcolare noi
+    @Column(name = "ideal_weight")
     private int idealWeight;
+
+    @Column(name = "calorie_req")
     private int calorieReq;
+
     //dati accesso
     private String mail;
     private String password;
+
+    @OneToMany(mappedBy = "id_food", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Food> avoidIngredients;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "food_storage",
+            joinColumns = {@JoinColumn(name = "id_food", referencedColumnName = "id_food")},
+            inverseJoinColumns = {@JoinColumn(name = "id_food", referencedColumnName = "id_food")})
+    @MapKey(name = "id_food") // palese esplosione
     private Map<Long,Integer> foodStorage;
 
     public Person(){
