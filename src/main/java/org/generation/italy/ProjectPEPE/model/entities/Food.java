@@ -1,14 +1,32 @@
 package org.generation.italy.ProjectPEPE.model.entities;
 
+import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
+import jakarta.persistence.*;
 import org.generation.italy.ProjectPEPE.model.entities.enums.AvgCost;
 import org.generation.italy.ProjectPEPE.model.entities.enums.Category;
+import org.hibernate.annotations.Type;
 
 import java.util.Set;
 
+@Entity
+@Table(name = "food")
 public class Food {
+    @Id
+    @GeneratedValue(generator = "food_generator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "food_generator", sequenceName = "food_sequence", allocationSize = 1)
+    @Column(name = "id_food")
     private long id;
     private String name;
+
+    @ElementCollection(targetClass = Category.class) // palese problema
+    @CollectionTable(name = "food_category", joinColumns = @JoinColumn(name = "id_food"))
+    @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private Set<Category> categoryList;
+
+    @Column(name = "avg_cost", columnDefinition = "AVG_COST")
+    @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private AvgCost avgCost;
     private double kal;
     private double carbs;
@@ -16,6 +34,8 @@ public class Food {
     private double protein;
     private double fat;
     private double fiber;
+
+    @Column(name = "saturated_fat")
     private double saturatedFat;
 
     public Food() {

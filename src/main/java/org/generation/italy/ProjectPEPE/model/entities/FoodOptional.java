@@ -1,26 +1,40 @@
 package org.generation.italy.ProjectPEPE.model.entities;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "recipe_food")
 public class FoodOptional {
+    @ManyToOne
+    @Column(name = "id_recipe")
+    @JoinColumn(name = "id_recipe")
+    private Recipe recipe;
+
     //id uguale al food
-    private long id;
+    @OneToOne
+    @Column(name = "id_recipe")
+    @JoinColumn(name = "id_food")
+    private Food food;
     private int quantity;
+
+    @Column(name = "is_optional")
     private boolean isOptional;
 
     public FoodOptional() {
     }
 
-    public FoodOptional(long id, int quantity, boolean isOptional) {
-        this.id = id;
+    public FoodOptional(Food food, int quantity, boolean isOptional) {
+        this.food = food;
         this.quantity = quantity;
         this.isOptional = isOptional;
     }
 
-    public long getId() {
-        return id;
+    public Food getFood() {
+        return food;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setFood(Food food) {
+        this.food = food;
     }
 
     public int getQuantity() {
@@ -38,4 +52,5 @@ public class FoodOptional {
     public void setOptional(boolean optional) {
         isOptional = optional;
     }
+
 }

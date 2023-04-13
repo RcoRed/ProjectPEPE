@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS food_storage, avoiding_food, recipe_food, recipe, food, person;
+DROP TABLE IF EXISTS food_category, food_storage, avoiding_food, recipe_food, recipe, food, person;
 DROP TYPE IF EXISTS WORK, DIET, PHISICAL_ACTIVITY, CATEGORY, AVG_COST, DIFFICULTY, DISH, SEX;
 
 CREATE TYPE WORK    AS ENUM('SEDENTARY','ACTIVE','VERY_ACTIVE');
@@ -111,11 +111,20 @@ CREATE TABLE avoiding_food
 --tabella FOOD_STORAGE
 CREATE TABLE food_storage
 (
-    id_person                 BIGINT NOT NULL,
+    id_person               BIGINT NOT NULL,
     id_food                 BIGINT NOT NULL,
     quantity                INT NOT NULL,
     CONSTRAINT FK_food_storage_person FOREIGN KEY(id_person)
         REFERENCES person(id_person),
     CONSTRAINT FK_food_storage_food FOREIGN KEY(id_food)
         REFERENCES food(id_food)
-)
+);
+
+--tabella FOOD_CATEGORY
+CREATE TABLE food_category
+(
+    id_food         BIGINT NOT NULL,
+    category        CATEGORY NOT NULL,
+    CONSTRAINT FK_food_category_food FOREIGN KEY(id_food)
+        REFERENCES food(id_food)
+);
