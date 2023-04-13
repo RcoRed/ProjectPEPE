@@ -17,13 +17,14 @@ public class Food {
     private double fat;
     private double fiber;
     private double saturatedFat;
+    private String imageFilePath;
 
     public Food() {
     }
 
-    public Food(long id, String name, Set<Category> categoryList, AvgCost avgCost,
-                double kal, double carbs, double sugar, double protein,
-                double fat, double fiber, double saturatedFat) {
+    public Food(long id, String name, Set<Category> categoryList, AvgCost avgCost, double kal,
+                double carbs, double sugar, double protein, double fat, double fiber,
+                double saturatedFat, String imageFilePath) {
         this.id = id;
         this.name = name;
         this.categoryList = categoryList;
@@ -35,6 +36,7 @@ public class Food {
         this.fat = fat;
         this.fiber = fiber;
         this.saturatedFat = saturatedFat;
+        this.imageFilePath = imageFilePath;
     }
 
     public long getId() {
@@ -123,5 +125,13 @@ public class Food {
 
     public void setSaturatedFat(double saturatedFat) {
         this.saturatedFat = saturatedFat;
+    }
+
+    public String getImageFilePath() {
+        return imageFilePath;
+    }
+
+    public void setImageFilePath(String imageFilePath) {
+        this.imageFilePath = imageFilePath;
     }
 }

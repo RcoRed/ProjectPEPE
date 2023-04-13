@@ -12,6 +12,7 @@ public class Recipe {
     private String name;
     private String description;
     private boolean toCook;
+    private String imageFilePath;
     //totali
     private int totNutritionalValue;
     private int totPreparationTime;
@@ -27,13 +28,14 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(long id, String name, String description, boolean toCook, int totNutritionalValue,
-                  int totPreparationTime, int numberIngredient, AvgCost totalCost, Difficulty difficulty,
-                  Diet diet, Dish dish, Set<FoodOptional> ingredientList) {
+    public Recipe(long id, String name, String description, boolean toCook, String imageFilePath,
+                  int totNutritionalValue, int totPreparationTime, int numberIngredient,
+                  AvgCost totalCost, Difficulty difficulty, Diet diet, Dish dish, Set<FoodOptional> ingredientList) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.toCook = toCook;
+        this.imageFilePath = imageFilePath;
         this.totNutritionalValue = totNutritionalValue;
         this.totPreparationTime = totPreparationTime;
         this.numberIngredient = numberIngredient;
@@ -74,6 +76,14 @@ public class Recipe {
 
     public void setToCook(boolean toCook) {
         this.toCook = toCook;
+    }
+
+    public String getImageFilePath() {
+        return imageFilePath;
+    }
+
+    public void setImageFilePath(String imageFilePath) {
+        this.imageFilePath = imageFilePath;
     }
 
     public int getTotNutritionalValue() {
