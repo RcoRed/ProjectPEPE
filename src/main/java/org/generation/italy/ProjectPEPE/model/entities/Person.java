@@ -8,7 +8,7 @@ import org.generation.italy.ProjectPEPE.model.entities.enums.Work;
 import java.util.Map;
 import java.util.Set;
 
-public class User {
+public class Person {
     //dati generali user
     private long id;
     private String firstname;
@@ -30,14 +30,14 @@ public class User {
     private Set<Food> avoidIngredients;
     private Map<Long,Integer> foodStorage;
 
-    public User(){
+    public Person(){
 
     }
 
-    public User(long id, String firstname, String lastname, int age, int weight,
-                int height, Sex sex, Work work, Diet diet, PhisicalActivity phisicalActivity,
-                int idealWeight, int calorieReq, String mail, String password,
-                Set<Food> avoidIngredients, Map<Long, Integer> foodStorage) {
+    public Person(long id, String firstname, String lastname, int age, int weight,
+                  int height, Sex sex, Work work, Diet diet, PhisicalActivity phisicalActivity,
+                  int idealWeight, int calorieReq, String mail, String password,
+                  Set<Food> avoidIngredients, Map<Long, Integer> foodStorage) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
