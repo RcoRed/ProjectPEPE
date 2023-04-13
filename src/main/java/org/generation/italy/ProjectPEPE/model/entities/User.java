@@ -5,6 +5,7 @@ import org.generation.italy.ProjectPEPE.model.entities.enums.PhisicalActivity;
 import org.generation.italy.ProjectPEPE.model.entities.enums.Sex;
 import org.generation.italy.ProjectPEPE.model.entities.enums.Work;
 
+import java.util.Map;
 import java.util.Set;
 
 public class User {
@@ -27,6 +28,7 @@ public class User {
     private String mail;
     private String password;
     private Set<Food> avoidIngredients;
+    private Map<Long,Integer> foodStorage;
 
     public User(){
 
@@ -34,7 +36,8 @@ public class User {
 
     public User(long id, String firstname, String lastname, int age, int weight,
                 int height, Sex sex, Work work, Diet diet, PhisicalActivity phisicalActivity,
-                int idealWeight, int calorieReq, String mail, String password, Set<Food> avoidIngredients) {
+                int idealWeight, int calorieReq, String mail, String password,
+                Set<Food> avoidIngredients, Map<Long, Integer> foodStorage) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -50,6 +53,7 @@ public class User {
         this.mail = mail;
         this.password = password;
         this.avoidIngredients = avoidIngredients;
+        this.foodStorage = foodStorage;
     }
 
     public long getId() {
@@ -170,5 +174,13 @@ public class User {
 
     public void setAvoidIngredients(Set<Food> avoidIngredients) {
         this.avoidIngredients = avoidIngredients;
+    }
+
+    public Map<Long, Integer> getFoodStorage() {
+        return foodStorage;
+    }
+
+    public void setFoodStorage(Map<Long, Integer> foodStorage) {
+        this.foodStorage = foodStorage;
     }
 }

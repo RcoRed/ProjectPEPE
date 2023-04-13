@@ -3,10 +3,12 @@ package org.generation.italy.ProjectPEPE.model.entities;
 import org.generation.italy.ProjectPEPE.model.entities.enums.AvgCost;
 import org.generation.italy.ProjectPEPE.model.entities.enums.Category;
 
+import java.util.Set;
+
 public class Food {
     private long id;
     private String name;
-    private Category category;
+    private Set<Category> categoryList;
     private AvgCost avgCost;
     private double kal;
     private double carbs;
@@ -19,10 +21,12 @@ public class Food {
     public Food() {
     }
 
-    public Food(long id, String name, Category category, AvgCost avgCost, double kal, double carbs, double sugar, double protein, double fat, double fiber, double saturatedFat) {
+    public Food(long id, String name, Set<Category> categoryList, AvgCost avgCost,
+                double kal, double carbs, double sugar, double protein,
+                double fat, double fiber, double saturatedFat) {
         this.id = id;
         this.name = name;
-        this.category = category;
+        this.categoryList = categoryList;
         this.avgCost = avgCost;
         this.kal = kal;
         this.carbs = carbs;
@@ -49,12 +53,12 @@ public class Food {
         this.name = name;
     }
 
-    public Category getCategory() {
-        return category;
+    public Set<Category> getCategoryList() {
+        return categoryList;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryList(Set<Category> categoryList) {
+        this.categoryList = categoryList;
     }
 
     public AvgCost getAvgCost() {

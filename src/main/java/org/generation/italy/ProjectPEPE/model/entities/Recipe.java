@@ -22,14 +22,14 @@ public class Recipe {
     private Diet diet;
     private Dish dish;
     //è un set!!!
-    private Set<Food> ingredientList;
+    private Set<FoodOptional> ingredientList;
 
     public Recipe() {
     }
 
     public Recipe(long id, String name, String description, boolean toCook, int totNutritionalValue,
                   int totPreparationTime, int numberIngredient, AvgCost totalCost, Difficulty difficulty,
-                  Diet diet, Dish dish, Set<Food> ingredientList) {
+                  Diet diet, Dish dish, Set<FoodOptional> ingredientList) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -132,11 +132,11 @@ public class Recipe {
         this.dish = dish;
     }
 
-    public Set<Food> getIngredientList() {
+    public Set<FoodOptional> getIngredientList() {
         return ingredientList;
     }
 
-    public void setIngredientList(Set<Food> ingredientList) {
+    public void setIngredientList(Set<FoodOptional> ingredientList) {
         this.ingredientList = ingredientList;
     }
 }
