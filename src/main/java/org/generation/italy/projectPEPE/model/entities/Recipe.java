@@ -1,11 +1,11 @@
-package org.generation.italy.ProjectPEPE.model.entities;
+package org.generation.italy.projectPEPE.model.entities;
 
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.*;
-import org.generation.italy.ProjectPEPE.model.entities.enums.AvgCost;
-import org.generation.italy.ProjectPEPE.model.entities.enums.Diet;
-import org.generation.italy.ProjectPEPE.model.entities.enums.Difficulty;
-import org.generation.italy.ProjectPEPE.model.entities.enums.Dish;
+import org.generation.italy.projectPEPE.model.entities.enums.AvgCost;
+import org.generation.italy.projectPEPE.model.entities.enums.Diet;
+import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
+import org.generation.italy.projectPEPE.model.entities.enums.Dish;
 import org.hibernate.annotations.Type;
 
 import java.util.Set;
@@ -30,7 +30,7 @@ public class Recipe {
 
     //totali
     @Column(name = "tot_nutritional_value")
-    private int totNutritionalValue;
+    private double totNutritionalValue;
 
     @Column(name = "tot_preparation_time")
     private int totPreparationTime;
@@ -61,27 +61,49 @@ public class Recipe {
 
     //è un set!!!
     @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<FoodOptional> ingredientList;
+    private Set<Ingredient> ingredients;
 
     public Recipe() {
     }
 
-    public Recipe(long id, String name, String description, boolean toCook, String imageFilePath,
-                  int totNutritionalValue, int totPreparationTime, int numberIngredient,
-                  AvgCost totalCost, Difficulty difficulty, Diet diet, Dish dish, Set<FoodOptional> ingredientList) {
+    public Recipe(long id, String name, String description, boolean toCook,
+                  String imageFilePath, int totPreparationTime, Difficulty difficulty,
+                  Diet diet, Dish dish, Set<Ingredient> ingredients) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.toCook = toCook;
         this.imageFilePath = imageFilePath;
-        this.totNutritionalValue = totNutritionalValue;
         this.totPreparationTime = totPreparationTime;
-        this.numberIngredient = numberIngredient;
-        this.totalCost = totalCost;
         this.difficulty = difficulty;
         this.diet = diet;
         this.dish = dish;
-        this.ingredientList = ingredientList;
+        this.ingredients = ingredients;
+        this.totalCost = this.calculateAvgCost();
+        this.totNutritionalValue = this.calculateTotNutritionalValue();
+        this.numberIngredient = this.calculateNumberIngredient();
+    }
+
+    private AvgCost calculateAvgCost(){
+        double avg;
+        int total = 0;
+        for(Ingredient f : ingredients){
+            if(f.getFood().getAvgCost().equals(AvgCost.EXOTIC)){
+                return AvgCost.EXOTIC;
+            }
+            total += f.getFood().getAvgCost().getCostLevel();
+        }
+        avg = total / ingredients.size();
+
+        return AvgCost.getEnumByValue(avg);
+    }
+
+    private double calculateTotNutritionalValue(){
+        return ingredients.stream().mapToDouble(i -> i.getFood().getKal()).sum();
+    }
+
+    private int calculateNumberIngredient(){
+        return ingredients.size();
     }
 
     public long getId() {
@@ -124,11 +146,11 @@ public class Recipe {
         this.imageFilePath = imageFilePath;
     }
 
-    public int getTotNutritionalValue() {
+    public double getTotNutritionalValue() {
         return totNutritionalValue;
     }
 
-    public void setTotNutritionalValue(int totNutritionalValue) {
+    public void setTotNutritionalValue(double totNutritionalValue) {
         this.totNutritionalValue = totNutritionalValue;
     }
 
@@ -180,25 +202,13 @@ public class Recipe {
         this.dish = dish;
     }
 
-    public Set<FoodOptional> getIngredientList() {
-        return ingredientList;
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
     }
 
-    public void setIngredientList(Set<FoodOptional> ingredientList) {
-        this.ingredientList = ingredientList;
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
-    private AvgCost calculateAvgCost(){
-        double avg;
-        int total = 0;
-        for(FoodOptional f : ingredientList){
-            if(f.getFood().getAvgCost().equals(AvgCost.EXOTIC)){
-                return AvgCost.EXOTIC;
-            }
-            total += f.getFood().getAvgCost().getCostLevel();
-        }
-        avg = total / ingredientList.size();
 
-        return AvgCost.getEnumByValue(avg);
-    }
 }

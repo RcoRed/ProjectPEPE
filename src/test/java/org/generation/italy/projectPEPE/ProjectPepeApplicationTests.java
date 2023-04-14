@@ -1,4 +1,4 @@
-package org.generation.italy.ProjectPEPE;
+package org.generation.italy.projectPEPE;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

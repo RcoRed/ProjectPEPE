@@ -1,9 +1,8 @@
-package org.generation.italy.ProjectPEPE.model.entities;
+package org.generation.italy.projectPEPE.model.entities;
 
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.*;
-import org.generation.italy.ProjectPEPE.model.entities.enums.AvgCost;
-import org.generation.italy.ProjectPEPE.model.entities.enums.Category;
+import org.generation.italy.projectPEPE.model.entities.enums.AvgCost;
 import org.hibernate.annotations.Type;
 
 import java.util.Set;
@@ -18,10 +17,11 @@ public class Food {
     private long id;
     private String name;
 
-    @ElementCollection(targetClass = Category.class) // palese problema
-    @CollectionTable(name = "food_category", joinColumns = @JoinColumn(name = "id_food"))
-    @Enumerated(EnumType.STRING)
-    @Type(PostgreSQLEnumType.class)
+    @ManyToMany
+    @JoinTable(
+            name = "food_category",
+            joinColumns = @JoinColumn(name = "id_food"),
+            inverseJoinColumns = @JoinColumn(name = "id_category"))
     private Set<Category> categoryList;
 
     @Column(name = "avg_cost", columnDefinition = "AVG_COST")
@@ -39,6 +39,12 @@ public class Food {
     private double saturatedFat;
 
     public Food() {
+    }
+
+    public Food(long id, String name, Set<Category> categoryList) {
+        this.id = id;
+        this.name = name;
+        this.categoryList = categoryList;
     }
 
     public Food(long id, String name, Set<Category> categoryList, AvgCost avgCost, double kal,

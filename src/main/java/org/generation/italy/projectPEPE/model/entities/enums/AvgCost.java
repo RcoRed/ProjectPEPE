@@ -1,4 +1,4 @@
-package org.generation.italy.ProjectPEPE.model.entities.enums;
+package org.generation.italy.projectPEPE.model.entities.enums;
 
 public enum AvgCost {
     LOW(1), MEDIUM(2), HIGH(3), EXOTIC(4);

@@ -1,4 +1,4 @@
-package org.generation.italy.ProjectPEPE;
+package org.generation.italy.projectPEPE;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
