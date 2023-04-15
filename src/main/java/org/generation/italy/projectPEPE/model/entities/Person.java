@@ -95,7 +95,7 @@ public class Person {
     }
 
     private double calculateIdealWeight(){
-        return  getSex() == Sex.MALE? (Math.pow(getHeight(),2)/100)*22.1/100 : (Math.pow(getHeight(),2)/100)*20.6/100;
+        return  getSex() == Sex.MALE? Math.round((Math.pow(getHeight(),2)/100)*22.1/100*100.0)/100.0 : Math.round((Math.pow(getHeight(),2)/100)*20.6/100*100.0)/100.0;
         //return  sex == Sex.MALE? ((getHeight()*getHeight())/100)*22.1/100 : ((getHeight()*getHeight())/100)*20.6/100;
     }
 
@@ -157,7 +157,7 @@ public class Person {
     }
 
     public static void main(String[] args) {
-        Person p = new Person(1,"nome","cognome",LocalDate.of(1988,1,1),61,190,Sex.MALE,Work.ACTIVE,Diet.OMNIVOROUS,
+        Person p = new Person(1,"nome","cognome",LocalDate.of(1988,1,1),61,190,Sex.FEMALE,Work.ACTIVE,Diet.OMNIVOROUS,
                 PhysicalActivity.LOW,"mail","pass",null,null);
         System.out.println(p.getIdealWeight());
         System.out.println(p.getCalorieReq());
