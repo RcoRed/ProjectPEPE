@@ -72,11 +72,18 @@ class AbstractRecipeRepositoryTest {
         List<Recipe> result = new ArrayList<>();
         recipeIterable.iterator().forEachRemaining(result::add);
         assertEquals(1,result.size());
+        assertEquals("fagioli con ceci e mela",result.get(0).getName());
 
     }
 
     @Test
     void findByDiet() {
+        Iterable<Recipe> recipeIterable = repo.findByDiet(Diet.VEGAN);
+        List<Recipe> result = new ArrayList<>();
+        recipeIterable.iterator().forEachRemaining(result::add);
+        assertEquals(1,result.size());
+        assertEquals(Diet.VEGAN,result.get(0).getDiet());
+
     }
 
     @Test
