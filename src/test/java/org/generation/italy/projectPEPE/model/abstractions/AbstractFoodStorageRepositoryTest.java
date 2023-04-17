@@ -37,7 +37,7 @@ class AbstractFoodStorageRepositoryTest {
     @BeforeEach
     void setUp() {
         //p1 = new Person(0,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,CALORIES1,MAIL1,PASSWORD1);
-        f1 = new Food(0,FOODNAME1,null,null,0,0,0,0,0,0,0);
+        f1 = new Food(0,FOOD_NAME1,null,null,0,0,0,0,0,0,0);
         fS1 = new FoodStorage(0,f1,p1,QUANTITY1);
         fS2 = new FoodStorage(0,f1,p1,QUANTITY2);
 
