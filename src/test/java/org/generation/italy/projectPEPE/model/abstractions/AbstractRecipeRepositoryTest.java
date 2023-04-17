@@ -1,13 +1,7 @@
 package org.generation.italy.projectPEPE.model.abstractions;
 
-import org.generation.italy.projectPEPE.model.entities.Food;
-import org.generation.italy.projectPEPE.model.entities.FoodStorage;
-import org.generation.italy.projectPEPE.model.entities.Ingredient;
-import org.generation.italy.projectPEPE.model.entities.Recipe;
-import org.generation.italy.projectPEPE.model.entities.enums.AvgCost;
-import org.generation.italy.projectPEPE.model.entities.enums.Diet;
-import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
-import org.generation.italy.projectPEPE.model.entities.enums.Dish;
+import org.generation.italy.projectPEPE.model.entities.*;
+import org.generation.italy.projectPEPE.model.entities.enums.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,15 +30,22 @@ class AbstractRecipeRepositoryTest {
     private Recipe recipe1;
     private Food food1;
     private Food food2;
-    private Set<Ingredient> foods = new HashSet<>();
+    private Set<Food> foods = new HashSet<>();
     private Ingredient ingredient1;
     private Ingredient ingredient2;
+    private Person person1;
 
 
     @BeforeEach
     void setUp() {
-       // food1 = new Food(0,FOOD_NAME1,null, AvgCost.MEDIUM,0,0,0,0,0,0,0);
-        //food2= new Food(0,FOOD_NAME2,null,AvgCost.EXOTIC,0,0,0,0,0,0,0);
+        food1 = new Food(10000,FOOD_NAME1,null, AvgCost.MEDIUM,0,0,0,0,0,0,0);
+        food2= new Food(10003,FOOD_NAME2,null,AvgCost.EXOTIC,0,0,0,0,0,0,0);
+        foods.add(food1);
+        foods.add(food2);
+        System.out.println(foods);
+        person1 = new Person(10000,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
+                Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH,MAIL1,PASSWORD1,foods,null);
+        System.out.println(person1);
 //        food1 = em.persist(food1);
 //        food2 = em.persist(food2);
 //        ingredient1= new Ingredient(0,recipe1,food1,100,false);
@@ -68,37 +69,59 @@ class AbstractRecipeRepositoryTest {
     @Test
     void findByNameContains_Should_Find_Recipe_By_Title_Like() {
 
-        Iterable<Recipe> recipeIterable = repo.findByNameContains("ce");
+        Iterable<Recipe> recipeIterable = repo.findByNameContains("patat");
         List<Recipe> result = new ArrayList<>();
         recipeIterable.iterator().forEachRemaining(result::add);
         assertEquals(1,result.size());
-        assertEquals("fagioli con ceci e mela",result.get(0).getName());
+        assertEquals("Recipe di prova1 patate lesse",result.get(0).getName());
 
     }
 
     @Test
-    void findByDiet() {
+    void findByDiet_Should_Find_Recipe_By_Diet() {
         Iterable<Recipe> recipeIterable = repo.findByDiet(Diet.VEGAN);
         List<Recipe> result = new ArrayList<>();
         recipeIterable.iterator().forEachRemaining(result::add);
-        assertEquals(1,result.size());
+        assertEquals(2,result.size());
         assertEquals(Diet.VEGAN,result.get(0).getDiet());
+        assertEquals(Diet.VEGAN,result.get(1).getDiet());
 
     }
 
     @Test
-    void findByPersonDiet() {
+    void findByPersonDiet_Should_Find_Recipe_By_Person_Diet() {
+        Iterable<Recipe> recipeIterable = repo.findByPersonDiet(person1);
+        List<Recipe> result = new ArrayList<>();
+        recipeIterable.iterator().forEachRemaining(result::add);
+        assertEquals(2,result.size());
+        assertEquals(Diet.VEGAN,result.get(0).getDiet());
+        assertEquals(Diet.VEGAN,result.get(1).getDiet());
     }
 
     @Test
     void findByAvoidingIngredients() {
+        Iterable<Recipe> recipeIterable = repo.findByAvoidingIngredients(person1);
+        List<Recipe> result = new ArrayList<>();
+        recipeIterable.iterator().forEachRemaining(result::add);
+        assertEquals(1,result.size());
+        assertEquals(10001,result.get(0).getId());
     }
 
     @Test
-    void findByDifficulty() {
+    void findByDifficulty_Should_Find_Recipe_By_Difficulty() {
+        Iterable<Recipe> recipeIterable = repo.findByDifficulty(Difficulty.MEDIUM);
+        List<Recipe> result = new ArrayList<>();
+        recipeIterable.iterator().forEachRemaining(result::add);
+        assertEquals(1,result.size());
+        assertEquals(Difficulty.MEDIUM,result.get(0).getDifficulty());
     }
 
     @Test
-    void findByToCook() {
+    void findByToCook_Should_Find_Recipe_By_Food_To_Cook() {
+        Iterable<Recipe> recipeIterable = repo.findByToCook(true);
+        List<Recipe> result = new ArrayList<>();
+        recipeIterable.iterator().forEachRemaining(result::add);
+        assertEquals(1,result.size());
+        assertTrue(result.get(0).isToCook());
     }
 }

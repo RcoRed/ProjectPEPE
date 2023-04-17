@@ -18,6 +18,7 @@ public class AvoidingFood {
     private Food food;
 
     public AvoidingFood() {
+
     }
 
     public AvoidingFood(long id, Person person, Food food) {

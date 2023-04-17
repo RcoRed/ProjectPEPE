@@ -15,6 +15,7 @@ public interface AbstractRecipeRepository extends JpaRepository<Recipe, Long> {
     @Query("from Recipe r join Person p where r.diet = p.diet")
     Iterable<Recipe> findByPersonDiet(Person person);
 
+    //non funziona
     @Query("from Recipe r join Ingredient i where i.food != (select af.food from AvoidingFood af join Person p) ")
     Iterable<Recipe> findByAvoidingIngredients(Person person);
 
