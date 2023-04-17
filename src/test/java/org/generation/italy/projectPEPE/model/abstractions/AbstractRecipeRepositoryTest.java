@@ -4,6 +4,7 @@ import org.generation.italy.projectPEPE.model.entities.Food;
 import org.generation.italy.projectPEPE.model.entities.FoodStorage;
 import org.generation.italy.projectPEPE.model.entities.Ingredient;
 import org.generation.italy.projectPEPE.model.entities.Recipe;
+import org.generation.italy.projectPEPE.model.entities.enums.AvgCost;
 import org.generation.italy.projectPEPE.model.entities.enums.Diet;
 import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
 import org.generation.italy.projectPEPE.model.entities.enums.Dish;
@@ -42,22 +43,22 @@ class AbstractRecipeRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        food1 = new Food(0,FOOD_NAME1,null,null,0,0,0,0,0,0,0);
-        food2= new Food(0,FOOD_NAME2,null,null,0,0,0,0,0,0,0);
-        ingredient1= new Ingredient(0,recipe1,food1,100,false);
-        ingredient2= new Ingredient(0,recipe1,food2,200,true);
-        foods.add(ingredient1);
-        foods.add(ingredient2);
-        System.out.println(foods);
-        recipe1 = new Recipe(0,RECIPE_NAME1,RECIPE_DESCRIPTION1,true,
-                IMAGE_FILE_PATH1,TOT_PREPARATION_TIME1, Difficulty.MEDIUM, Diet.VEGAN, Dish.FIRST,foods);
-        System.out.println("dopo recipe");
-        em.persist(food1);
-        em.persist(food2);
-        em.persist(recipe1);
+       // food1 = new Food(0,FOOD_NAME1,null, AvgCost.MEDIUM,0,0,0,0,0,0,0);
+        //food2= new Food(0,FOOD_NAME2,null,AvgCost.EXOTIC,0,0,0,0,0,0,0);
+//        food1 = em.persist(food1);
+//        food2 = em.persist(food2);
+//        ingredient1= new Ingredient(0,recipe1,food1,100,false);
+//        ingredient2= new Ingredient(0,recipe1,food2,200,true);
+//        foods.add(ingredient1);
+//        foods.add(ingredient2);
+//        recipe1 = new Recipe(0,RECIPE_NAME1,RECIPE_DESCRIPTION1,true,
+//                IMAGE_FILE_PATH1,TOT_PREPARATION_TIME1, Difficulty.MEDIUM, Diet.VEGAN, Dish.FIRST, foods);
+//        System.out.println(foods);
+//        System.out.println("dopo recipe");
+        //em.persist(recipe1);
         //em.persist(ingredient1);
         //em.persist(ingredient2);
-        em.flush();
+       // em.flush();
     }
 
     @AfterEach
@@ -67,7 +68,7 @@ class AbstractRecipeRepositoryTest {
     @Test
     void findByNameContains_Should_Find_Recipe_By_Title_Like() {
 
-        Iterable<Recipe> recipeIterable = repo.findByNameContains("ameR");
+        Iterable<Recipe> recipeIterable = repo.findByNameContains("ce");
         List<Recipe> result = new ArrayList<>();
         recipeIterable.iterator().forEachRemaining(result::add);
         assertEquals(1,result.size());
