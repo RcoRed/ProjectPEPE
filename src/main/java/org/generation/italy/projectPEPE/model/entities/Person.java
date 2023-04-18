@@ -173,13 +173,6 @@ public class Person {
         return LocalDate.now().getYear() - getDob().getYear();
     }
 
-    public static void main(String[] args) {
-        Person p = new Person(1,"nome","cognome",LocalDate.of(1988,1,1),61,190,Sex.MALE,Work.ACTIVE,Diet.OMNIVOROUS,
-                PhysicalActivity.LOW,"mail","pass",null,null);
-        System.out.println(p.getIdealWeight());
-        System.out.println(p.getCalorieReq());
-    }
-
     public long getId() {
         return id;
     }

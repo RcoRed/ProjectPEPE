@@ -42,7 +42,6 @@ class AbstractRecipeRepositoryTest {
     private AvoidingFood avoidingFood1;
     private AvoidingFood avoidingFood2;
 
-
     @BeforeEach
     void setUp() {
         recipe1 = new Recipe(0,RECIPE_NAME1,RECIPE_DESCRIPTION1,true,
@@ -79,38 +78,6 @@ class AbstractRecipeRepositoryTest {
         avoidingFood2 =new AvoidingFood(0,person2,food2);
         em.persist(avoidingFood2);
         em.flush();
-
-//        food1 = new Food(0,FOOD_NAME1,null, AvgCost.MEDIUM,0,0,0,0,0,0,0);
-//        food2 = new Food(0,FOOD_NAME2,null,AvgCost.EXOTIC,0,0,0,0,0,0,0);
-//        food1 = em.persist(food1);
-//        food2 = em.persist(food2);
-//        //foods.add(food1);
-//        foods.add(food2);
-//
-//        recipe1 = new Recipe(0,"nome","desc",true,"path",1,Difficulty.MEDIUM,Diet.VEGAN,Dish.FIRST,null);
-//        recipe1 = em.persist(recipe1);
-//
-//        person1 = new Person(1000000,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
-//                Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH,MAIL1,PASSWORD1,foods,null);
-//        person1 = em.persist(person1);
-//
-//        ingredient1 = new Ingredient(0,recipe1,food1,100,true);
-//        ingredient1 = em.persist(ingredient1);
-        //person1 = em.persist(person1);
-//        food1 = em.persist(food1);
-//        food2 = em.persist(food2);
-//        ingredient1= new Ingredient(0,recipe1,food1,100,false);
-//        ingredient2= new Ingredient(0,recipe1,food2,200,true);
-//        foods.add(ingredient1);
-//        foods.add(ingredient2);
-//        recipe1 = new Recipe(0,RECIPE_NAME1,RECIPE_DESCRIPTION1,true,
-//                IMAGE_FILE_PATH1,TOT_PREPARATION_TIME1, Difficulty.MEDIUM, Diet.VEGAN, Dish.FIRST, foods);
-//        System.out.println(foods);
-//        System.out.println("dopo recipe");
-        //em.persist(recipe1);
-        //em.persist(ingredient1);
-        //em.persist(ingredient2);
-       // em.flush();
     }
 
     @AfterEach
