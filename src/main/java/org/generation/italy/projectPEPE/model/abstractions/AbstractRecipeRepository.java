@@ -12,6 +12,7 @@ public interface AbstractRecipeRepository extends JpaRepository<Recipe, Long> {
     Iterable<Recipe> findByNameContains(String name);
 
     Iterable<Recipe> findByDiet(Diet diet);
+
     @Query("from Recipe r join Person p where r.diet = p.diet")
     Iterable<Recipe> findByPersonDiet(Person person);
 
