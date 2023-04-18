@@ -79,7 +79,7 @@ CREATE SEQUENCE recipe_sequence
 CREATE TABLE ingredient
 (
     id_ingredient              BIGINT NOT NULL,
-    id_recipe                 BIGINT NOT NULL,
+    id_recipe                 BIGINT,
     id_food                     BIGINT NOT NULL,
     quantity                INT NOT NULL,
     is_optional                BOOLEAN NOT NULL,
