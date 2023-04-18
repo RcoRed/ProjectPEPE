@@ -146,7 +146,6 @@ public class Person {
     private int calculateCalorieReq(){
         int mb = calculateBasalMetabolicRate();
         if (getAge() < 18){
-            System.out.println("bambino");
             return mb;
         }
         return (int) (calculateLaf() * mb);
