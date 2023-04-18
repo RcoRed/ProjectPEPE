@@ -34,6 +34,8 @@ public class Constants {
     public final static String RECIPE_DESCRIPTION1= "recipeDescription1";
     public final static String IMAGE_FILE_PATH1= "path1";
     public final static int TOT_PREPARATION_TIME1= 1;
+    public final static String RECIPE_NAME2= "nameRecipe2";
+    public final static String RECIPE_NAME_NOT_PRESENT= "notPresent";
 
 
 

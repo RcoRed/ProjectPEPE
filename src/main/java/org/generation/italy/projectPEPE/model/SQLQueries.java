@@ -2,13 +2,13 @@ package org.generation.italy.projectPEPE.model;
 
 public class SQLQueries {
     public final static String SQL_FIND_RECIPE_BY_AVOID_FOOD = """
-            SELECT r.name, r.description
-            FROM recipe as r join ingredient as i
-            USING (id_recipe)
-            WHERE i.id_food != (SELECT af.id_food 
+          SELECT *
+            FROM recipe as r
+            WHERE r.id_recipe NOT IN (SELECT i.id_recipe
                                  FROM avoiding_food as af
                                  JOIN person as p
-                                 USING (id_person
-                                 WHERE id_person = :id))
-            """;
+                                 ON af.id_person = :pippo
+                                 JOIN ingredient as i
+                                 USING (id_food)
+                                 GROUP BY i.id_recipe)""";
 }

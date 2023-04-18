@@ -51,11 +51,14 @@ public class GenericService implements AbstractGenericService {
     public Iterable<Recipe> findByPersonDiet(Person person) {
         return recipeRepo.findByPersonDiet(person);
     }
-
     @Override
-    public Iterable<Recipe> findByAvoidingIngredients(Person person) {
+   public Iterable<Recipe> findByAvoidingIngredients(Person person) {
         return recipeRepo.findByAvoidingIngredients(person);
     }
+   // @Override
+  // public Iterable<Recipe> findByAvoidingIngredients(long id) {
+   // return recipeRepo.findByAvoidingIngredients(id);
+//}
 
     @Override
     public Iterable<Recipe> findByDifficulty(Difficulty difficulty) {

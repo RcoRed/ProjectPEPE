@@ -106,6 +106,10 @@ CREATE TABLE avoiding_food
     CONSTRAINT FK_avoiding_food_food FOREIGN KEY(id_food)
         REFERENCES food(id_food)
 );
+CREATE SEQUENCE avoiding_food_sequence
+    start 1
+    increment 1
+    OWNED BY avoiding_food.id_avoiding_food;
 
 --tabella FOOD_STORAGE
 CREATE TABLE food_storage

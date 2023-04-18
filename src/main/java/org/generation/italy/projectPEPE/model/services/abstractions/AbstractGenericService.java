@@ -24,6 +24,7 @@ public interface AbstractGenericService {
     Iterable<Recipe> findByPersonDiet(Person person);
 
     Iterable<Recipe> findByAvoidingIngredients(Person person);
+   // Iterable<Recipe> findByAvoidingIngredients(long id);
 
     Iterable<Recipe> findByDifficulty(Difficulty difficulty);
 
