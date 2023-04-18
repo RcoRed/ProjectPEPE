@@ -12,6 +12,8 @@ import org.generation.italy.projectPEPE.model.services.abstractions.AbstractGene
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class GenericService implements AbstractGenericService {
 
@@ -24,6 +26,11 @@ public class GenericService implements AbstractGenericService {
         this.recipeRepo = recipeRepo;
     }
 
+
+    @Override
+    public Optional<Recipe> findById(long id) {
+        return recipeRepo.findById(id);
+    }
 
     @Override
     public Iterable<FoodStorage> findByPersonAndFood(Person person, Food food) {

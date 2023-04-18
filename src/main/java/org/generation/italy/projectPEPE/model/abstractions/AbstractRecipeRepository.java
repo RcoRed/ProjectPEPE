@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface AbstractRecipeRepository extends JpaRepository<Recipe, Long> {
-
     Iterable<Recipe> findByNameContains(String name);
 
     Iterable<Recipe> findByDiet(Diet diet);

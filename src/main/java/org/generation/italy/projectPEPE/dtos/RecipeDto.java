@@ -27,6 +27,8 @@ public class RecipeDto {
                 .map(RecipeDto::fromEntity).toList();
     }
 
+
+
     public long getId() {
         return id;
     }

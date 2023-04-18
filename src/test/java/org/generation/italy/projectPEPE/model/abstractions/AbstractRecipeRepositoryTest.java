@@ -38,22 +38,22 @@ class AbstractRecipeRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        food1 = new Food(0,FOOD_NAME1,null, AvgCost.MEDIUM,0,0,0,0,0,0,0);
-        food2 = new Food(0,FOOD_NAME2,null,AvgCost.EXOTIC,0,0,0,0,0,0,0);
-        food1 = em.persist(food1);
-        food2 = em.persist(food2);
-        //foods.add(food1);
-        foods.add(food2);
-
-        recipe1 = new Recipe(0,"nome","desc",true,"path",1,Difficulty.MEDIUM,Diet.VEGAN,Dish.FIRST,null);
-        recipe1 = em.persist(recipe1);
-
-        person1 = new Person(1000000,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
-                Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH,MAIL1,PASSWORD1,foods,null);
-        person1 = em.persist(person1);
-
-        ingredient1 = new Ingredient(0,recipe1,food1,100,true);
-        ingredient1 = em.persist(ingredient1);
+//        food1 = new Food(0,FOOD_NAME1,null, AvgCost.MEDIUM,0,0,0,0,0,0,0);
+//        food2 = new Food(0,FOOD_NAME2,null,AvgCost.EXOTIC,0,0,0,0,0,0,0);
+//        food1 = em.persist(food1);
+//        food2 = em.persist(food2);
+//        //foods.add(food1);
+//        foods.add(food2);
+//
+//        recipe1 = new Recipe(0,"nome","desc",true,"path",1,Difficulty.MEDIUM,Diet.VEGAN,Dish.FIRST,null);
+//        recipe1 = em.persist(recipe1);
+//
+//        person1 = new Person(1000000,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
+//                Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH,MAIL1,PASSWORD1,foods,null);
+//        person1 = em.persist(person1);
+//
+//        ingredient1 = new Ingredient(0,recipe1,food1,100,true);
+//        ingredient1 = em.persist(ingredient1);
         //person1 = em.persist(person1);
 //        food1 = em.persist(food1);
 //        food2 = em.persist(food2);
