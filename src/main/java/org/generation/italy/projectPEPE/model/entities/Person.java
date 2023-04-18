@@ -71,6 +71,24 @@ public class Person {
     public Person(){
 
     }
+    public Person(long id, String firstname, String lastname, LocalDate dob, int weight,
+                  int height, Sex sex, Work work, Diet diet, PhysicalActivity physicalActivity, String mail, String password) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.dob = dob;
+        this.weight = weight;
+        this.height = height;
+        this.sex = sex;
+        this.work = work;
+        this.diet = diet;
+        this.physicalActivity = physicalActivity;
+        this.mail = mail;
+        this.password = password;
+        this.idealWeight = calculateIdealWeight();
+        this.calorieReq = calculateCalorieReq();
+        //da aggiungere calcolo calorieReq e idealWeight
+    }
 
     public Person(long id, String firstname, String lastname, LocalDate dob, int weight,
                   int height, Sex sex, Work work, Diet diet, PhysicalActivity physicalActivity, String mail, String password,

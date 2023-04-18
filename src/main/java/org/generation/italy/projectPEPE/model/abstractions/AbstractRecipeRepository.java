@@ -6,6 +6,9 @@ import org.generation.italy.projectPEPE.model.entities.enums.Diet;
 import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import static org.generation.italy.projectPEPE.model.SQLQueries.SQL_FIND_RECIPE_BY_AVOID_FOOD;
 
 public interface AbstractRecipeRepository extends JpaRepository<Recipe, Long> {
 
@@ -17,7 +20,8 @@ public interface AbstractRecipeRepository extends JpaRepository<Recipe, Long> {
 
     @Query("from Recipe r where r.id NOT IN (SELECT i.recipe FROM AvoidingFood af JOIN Person p JOIN Ingredient i GROUP BY i.recipe) ")
     Iterable<Recipe> findByAvoidingIngredients(Person person);
-
+    //@Query(value = SQL_FIND_RECIPE_BY_AVOID_FOOD,nativeQuery = true)
+    //Iterable<Recipe> findByAvoidingIngredients( long pippo);
     Iterable<Recipe> findByDifficulty(Difficulty difficulty);
 
     Iterable<Recipe> findByToCook(boolean toCook);
