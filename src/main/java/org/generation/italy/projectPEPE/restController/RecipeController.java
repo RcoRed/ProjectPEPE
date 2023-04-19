@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
+@CrossOrigin
 @RestController
 @RequestMapping(value = "api/recipe")
 public class RecipeController {
@@ -45,7 +45,7 @@ public class RecipeController {
                                                              @RequestParam(required = false) Person person,
                                                              @RequestParam(required = false)Difficulty difficulty,
                                                              @RequestParam(required = false) Boolean toCook){
-        Iterable<Recipe> result = null;
+        Iterable<Recipe> result;
         if (recipeName != null){
             result = service.findByNameContains(recipeName);
             return ResponseEntity.ok().body(RecipeDto.fromEntityIterator(result));
@@ -66,6 +66,7 @@ public class RecipeController {
             result = service.findByToCook(toCook);
             return ResponseEntity.ok().body(RecipeDto.fromEntityIterator(result));
         }
-        return ResponseEntity.notFound().build();
+        result = service.findAll();
+        return ResponseEntity.ok().body(RecipeDto.fromEntityIterator(result));
     }
 }

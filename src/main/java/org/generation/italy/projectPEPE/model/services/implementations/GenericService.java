@@ -70,4 +70,9 @@ public class GenericService implements AbstractGenericService {
         return recipeRepo.findByToCook(toCook);
     }
 
+    @Override
+    public Iterable<Recipe> findAll() {
+        return recipeRepo.findAll();
+    }
+
 }

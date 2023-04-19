@@ -29,4 +29,5 @@ public interface AbstractGenericService {
     Iterable<Recipe> findByDifficulty(Difficulty difficulty);
 
     Iterable<Recipe> findByToCook(boolean toCook);
+    Iterable<Recipe> findAll();
 }
