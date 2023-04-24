@@ -78,11 +78,12 @@ CREATE SEQUENCE recipe_sequence
 
 CREATE TABLE ingredient
 (
-    id_ingredient              BIGINT NOT NULL,
-    id_recipe                 BIGINT,
+    id_ingredient               BIGINT NOT NULL,
+    id_recipe                   BIGINT,
     id_food                     BIGINT NOT NULL,
-    quantity                INT NOT NULL,
-    is_optional                BOOLEAN NOT NULL,
+    weight                      INT,
+    quantity                    INT,
+    is_optional                 BOOLEAN NOT NULL,
     CONSTRAINT PK_ingredient PRIMARY KEY(id_ingredient),
     CONSTRAINT FK_ingredient_recipe FOREIGN KEY(id_recipe)
         REFERENCES recipe(id_recipe),

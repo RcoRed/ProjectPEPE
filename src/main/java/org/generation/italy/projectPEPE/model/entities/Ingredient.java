@@ -18,7 +18,8 @@ public class Ingredient {
     @ManyToOne
     @JoinColumn(name = "id_food")
     private Food food;
-    private int quantity;
+    private Integer weight;
+    private Double quantity;
 
     @Column(name = "is_optional")
     private boolean isOptional;
@@ -26,10 +27,11 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    public Ingredient(long id, Recipe recipe, Food food, int quantity, boolean isOptional) {
+    public Ingredient(long id, Recipe recipe, Food food, Integer weight, Double quantity, boolean isOptional) {
         this.id = id;
         this.recipe = recipe;
         this.food = food;
+        this.weight = weight;
         this.quantity = quantity;
         this.isOptional = isOptional;
     }
@@ -58,14 +60,6 @@ public class Ingredient {
         this.food = food;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public boolean isOptional() {
         return isOptional;
     }
@@ -74,4 +68,19 @@ public class Ingredient {
         isOptional = optional;
     }
 
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getQuantity() {
+        return quantity;
+    }
 }

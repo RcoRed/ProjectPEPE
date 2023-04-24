@@ -6,6 +6,7 @@ import org.generation.italy.projectPEPE.model.entities.Person;
 import org.generation.italy.projectPEPE.model.entities.Recipe;
 import org.generation.italy.projectPEPE.model.entities.enums.Diet;
 import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
+import org.generation.italy.projectPEPE.model.entities.enums.Dish;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -20,6 +21,8 @@ public interface AbstractGenericService {
     Iterable<Recipe> findByNameContains(String name);
 
     Iterable<Recipe> findByDiet(Diet diet);
+
+    Iterable<Recipe> findByDish(Dish dish);
 
     Iterable<Recipe> findByPersonDiet(Person person);
 

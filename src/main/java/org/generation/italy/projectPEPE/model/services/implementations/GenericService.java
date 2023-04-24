@@ -8,6 +8,7 @@ import org.generation.italy.projectPEPE.model.entities.Person;
 import org.generation.italy.projectPEPE.model.entities.Recipe;
 import org.generation.italy.projectPEPE.model.entities.enums.Diet;
 import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
+import org.generation.italy.projectPEPE.model.entities.enums.Dish;
 import org.generation.italy.projectPEPE.model.services.abstractions.AbstractGenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,11 @@ public class GenericService implements AbstractGenericService {
     @Override
     public Iterable<Recipe> findByDiet(Diet diet) {
         return recipeRepo.findByDiet(diet);
+    }
+
+    @Override
+    public Iterable<Recipe> findByDish(Dish dish) {
+        return recipeRepo.findByDish(dish);
     }
 
     @Override
