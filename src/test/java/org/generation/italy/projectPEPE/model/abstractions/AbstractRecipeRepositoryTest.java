@@ -64,13 +64,13 @@ class AbstractRecipeRepositoryTest {
         food2 = new Food(0,FOOD_NAME2,null,AvgCost.EXOTIC,0,0,0,0,0,0,0);
         em.persist(food2);
 
-        ingredient1 = new Ingredient(0,recipe1,food1,100,true);
+        ingredient1 = new Ingredient(0,recipe1,food1,100, null, true);
         em.persist(ingredient1);
-        ingredient2 = new Ingredient(0,recipe2,food2,100,true);
+        ingredient2 = new Ingredient(0,recipe2,food2,100, null, true);
         em.persist(ingredient2);
-        ingredient3 = new Ingredient(0,recipe3,food1,100,true);
+        ingredient3 = new Ingredient(0,recipe3,food1,100, null, true);
         em.persist(ingredient3);
-        ingredient4 = new Ingredient(0,recipe1,food2,100,true);
+        ingredient4 = new Ingredient(0,recipe1,food2,100, null, true);
         em.persist(ingredient4);
 
         avoidingFood1 = new AvoidingFood(0,person1,food1);
