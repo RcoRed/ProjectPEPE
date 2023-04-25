@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.generation.italy.projectPEPE.model.entities.enums.Role;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "person_auth")
-public abstract class PersonAuth {
+public abstract class PersonAuth implements UserDetails {
     @Id
     @Column(name = "id_person_auth")
     @GeneratedValue(generator = "person_auth_generator", strategy = GenerationType.SEQUENCE)
@@ -24,7 +25,7 @@ public abstract class PersonAuth {
     private String mail;
     private String password;
     private Role role;
-    @OneToMany(mappedBy = "personAuth")
+    @OneToMany(mappedBy = "person")
     private List<Token> tokens;
 
 }
