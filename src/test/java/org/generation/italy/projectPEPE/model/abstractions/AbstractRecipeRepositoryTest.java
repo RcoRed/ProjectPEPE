@@ -53,11 +53,11 @@ class AbstractRecipeRepositoryTest {
         recipe3 = new Recipe(0,RECIPE_NAME_NOT_PRESENT,RECIPE_DESCRIPTION1,false,
                 IMAGE_FILE_PATH1,2,Difficulty.MEDIUM,Diet.VEGAN,Dish.FIRST);
         em.persist(recipe3);
-        person1 = new Person(0,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
-            Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH,MAIL1,PASSWORD1);
+        person1 = new Person(0,MAIL1,PASSWORD1,Role.USER,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
+            Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH);
         em.persist(person1);
-        person2 = new Person(0,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
-                Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH,MAIL1,PASSWORD1);
+        person2 = new Person(0,MAIL1,PASSWORD1,Role.USER,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
+                Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH);
         em.persist(person2);
         food1 = new Food(0,FOOD_NAME1,null, AvgCost.MEDIUM,0,0,0,0,0,0,0);
         em.persist(food1);
