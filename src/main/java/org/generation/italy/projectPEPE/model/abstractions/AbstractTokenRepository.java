@@ -14,7 +14,7 @@ public interface AbstractTokenRepository extends JpaRepository<Token,Long> {
 //      on t.user.id = u.id\s
 //      where u.id = :id and (t.expired = false or t.revoked = false)\s
 //      """)
-    @Query("FROM Token t JOIN t.personAuth p WHERE p.id = :id AND (t.expired = false OR t.revoked = false)")
+    @Query("FROM Token t JOIN t.person p WHERE p.id = :id AND (t.expired = false OR t.revoked = false)")
     List<Token> findAllValidTokenByUser(long id);
 
     Optional<Token> findByToken(String token);
