@@ -32,6 +32,7 @@ public class JwtService {
     }
 
     public String generateToken(HashMap<String,Object> extraClaims,UserDetails userDetails) {
+        System.out.println(userDetails);
         return buildToken(extraClaims,userDetails,jwtExpiration);
     }
 

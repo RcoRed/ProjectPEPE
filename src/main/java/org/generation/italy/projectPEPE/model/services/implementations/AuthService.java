@@ -47,11 +47,12 @@ public class AuthService {
 
     public AuthResponse register(RegisterRequest request) {
         //qui nell'esempio si usava il builder al momento non lo sto usando per la questione della classe astratta
-        System.out.println(request);
-        Person person = new Person(0,request.getMail(), request.getPassword(), Role.USER,
+        System.out.println("AuthService: " + request);
+        Person person = new Person(0,request.getEmail(), request.getPassword(), Role.USER,
                 request.getFirstname(), request.getLastname(), request.getDob(),
                 request.getWeight(), request.getHeight(), request.getSex(),
                 request.getWork(),request.getDiet(),request.getPhysicalActivity());
+        System.out.println("AuthService: " + person + " persona creata");
         Person savedPerson = personRepository.save(person);
         String jwtToken = jwtService.generateToken(person);
         String refreshToken = jwtService.generateRefreshToken(person);
@@ -63,14 +64,16 @@ public class AuthService {
     }
 
     public AuthResponse authenticate(AuthRequest request) {
+        System.out.println("AuthService/authenticate: " + request + " email: " + request.getEmail());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
         );
-        Person person = personRepository.findByMail(request.getEmail())
+        Person person = personRepository.findByEmail(request.getEmail())
                 .orElseThrow();
+        System.out.println("AuthService: findByEmail passed");
         String jwtToken = jwtService.generateToken(person);
         String refreshToken = jwtService.generateRefreshToken(person);
         revokeAllUserTokens(person);
@@ -113,7 +116,7 @@ public class AuthService {
         refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUsername(refreshToken);
         if(userEmail != null){
-            Person person = personRepository.findByMail(userEmail)
+            Person person = personRepository.findByEmail(userEmail)
                     .orElseThrow();
             if (jwtService.isTokenValid(refreshToken, person)){
                 String jwtToken = jwtService.generateToken(person);

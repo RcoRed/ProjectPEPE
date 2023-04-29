@@ -1,8 +1,10 @@
 package org.generation.italy.projectPEPE.model.entities;
 
+import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.generation.italy.projectPEPE.model.entities.enums.TokenType;
+import org.hibernate.annotations.Type;
 
 @Getter
 @Setter
@@ -21,7 +23,9 @@ public class Token {
 
     private String token;
 
+    @Column(name = "token_type", columnDefinition = "TOKEN_TYPE")
     @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private TokenType tokenType = TokenType.BEARER;
 
     private boolean revoked;

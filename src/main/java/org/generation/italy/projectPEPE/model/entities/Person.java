@@ -18,7 +18,7 @@ import java.util.Set;
 //@SuperBuilder
 @NoArgsConstructor
 @Entity
-@PrimaryKeyJoinColumn(name = "id_person_auth")
+@PrimaryKeyJoinColumn(name = "id_person")
 @Table(name = "person")
 public class Person extends PersonAuth{
     //dati generali user
@@ -55,7 +55,8 @@ public class Person extends PersonAuth{
     @Column(name = "calorie_req")
     private int calorieReq;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    //@ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(
             name = "avoiding_food",
             joinColumns = @JoinColumn(name = "id_person"),
@@ -99,6 +100,21 @@ public class Person extends PersonAuth{
         this.foodStorages = foodStorages;
         this.idealWeight = calculateIdealWeight();
         this.calorieReq = calculateCalorieReq();
+    }
+
+    public Person(Long id, String email, String password, Role role, int calorieReq, Diet diet, LocalDate dob, String firstname, int height, double idealWeight, String lastname, PhysicalActivity physicalActivity, Sex sex, int weight, Work work) {
+        super(id, email, password, role, null);
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.dob = dob;
+        this.weight = weight;
+        this.height = height;
+        this.sex = sex;
+        this.work = work;
+        this.diet = diet;
+        this.physicalActivity = physicalActivity;
+        this.idealWeight = idealWeight;
+        this.calorieReq = calorieReq;
     }
 
     private double calculateIdealWeight(){

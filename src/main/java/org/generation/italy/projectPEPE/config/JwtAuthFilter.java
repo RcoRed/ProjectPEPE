@@ -38,11 +38,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        System.out.println(request);
+        System.out.println("JwtAuthFilter: " + request);
+        System.out.println("JwtAuthFilter: " + request.getServletPath());
         //questo if serve davvero????
         if (request.getServletPath().contains("api/v1/auth")){
             //da capire esattamente che fa sta roba????
-
+            System.out.println("dentro if");
+            System.out.println(filterChain);
             filterChain.doFilter(request,response);
             return;
         }

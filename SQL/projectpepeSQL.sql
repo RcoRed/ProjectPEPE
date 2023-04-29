@@ -15,7 +15,7 @@ CREATE TYPE TOKEN_TYPE              AS ENUM('BEARER');
 CREATE TABLE person_auth
 (
     id_person_auth          BIGINT NOT NULL,
-    mail                    VARCHAR(50) NOT NULL,
+    email                   VARCHAR(50) NOT NULL,
     password                TEXT NOT NULL,
     role                    ROLE NOT NULL,
     CONSTRAINT PK_person_auth PRIMARY KEY(id_person_auth)

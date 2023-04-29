@@ -21,7 +21,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-    private String mail;
+    private String email;
     private String password;
     private String firstname;
     private String lastname;
