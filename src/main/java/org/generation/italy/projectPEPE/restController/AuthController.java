@@ -28,6 +28,7 @@ public class AuthController {
     public ResponseEntity<AuthResponse> register(
             @RequestBody RegisterRequest request
     ) {
+        System.out.println("dentro register controller");
         return ResponseEntity.ok(service.register(request));
     }
 

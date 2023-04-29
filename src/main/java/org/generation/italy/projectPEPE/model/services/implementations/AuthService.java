@@ -47,6 +47,7 @@ public class AuthService {
 
     public AuthResponse register(RegisterRequest request) {
         //qui nell'esempio si usava il builder al momento non lo sto usando per la questione della classe astratta
+        System.out.println(request);
         Person person = new Person(0,request.getMail(), request.getPassword(), Role.USER,
                 request.getFirstname(), request.getLastname(), request.getDob(),
                 request.getWeight(), request.getHeight(), request.getSex(),
