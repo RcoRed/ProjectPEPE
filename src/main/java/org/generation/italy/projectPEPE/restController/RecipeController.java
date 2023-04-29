@@ -41,10 +41,10 @@ public class RecipeController {
 
     @GetMapping()
     public ResponseEntity<Iterable<SimpleRecipeDto>> recipeGeneral(@RequestParam(required = false) String recipeName,
-                                                                   @RequestParam(required = false)Diet diet,
+                                                                   @RequestParam(required = false) Diet diet,
                                                                    @RequestParam(required = false) Dish dish,
                                                                    @RequestParam(required = false) Person person,
-                                                                   @RequestParam(required = false)Difficulty difficulty,
+                                                                   @RequestParam(required = false) Difficulty difficulty,
                                                                    @RequestParam(required = false) Boolean toCook){
         Iterable<Recipe> result;
         if (recipeName != null){
