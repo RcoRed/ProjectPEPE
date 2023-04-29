@@ -14,12 +14,15 @@ import org.generation.italy.projectPEPE.model.entities.enums.Role;
 import org.generation.italy.projectPEPE.model.entities.enums.TokenType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -43,6 +46,10 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
         this.tokenRepository = tokenRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    public Optional<Person> findByEmail(String email){
+        return  personRepository.findByEmail(email);
     }
 
     public AuthResponse register(RegisterRequest request) {

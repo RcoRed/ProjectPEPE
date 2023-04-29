@@ -40,7 +40,7 @@ public class GenericService implements AbstractGenericService {
 
     @Override
     public Iterable<Recipe> findByNameContains(String name) {
-        return recipeRepo.findByNameContains(name);
+        return recipeRepo.findByNameContainsIgnoreCase(name);
     }
 
     @Override

@@ -86,7 +86,7 @@ class AbstractRecipeRepositoryTest {
 
     @Test
     void findByNameContains_Should_Find_Recipe_By_Title_Like() {
-        Iterable<Recipe> recipeIterable = repo.findByNameContains("meRe");
+        Iterable<Recipe> recipeIterable = repo.findByNameContainsIgnoreCase("meRe");
         List<Recipe> result = new ArrayList<>();
         recipeIterable.iterator().forEachRemaining(result::add);
         assertEquals(2,result.size());

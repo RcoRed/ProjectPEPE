@@ -7,12 +7,9 @@ import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
 import org.generation.italy.projectPEPE.model.entities.enums.Dish;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
-import static org.generation.italy.projectPEPE.model.SQLQueries.SQL_FIND_RECIPE_BY_AVOID_FOOD;
 
 public interface AbstractRecipeRepository extends JpaRepository<Recipe, Long> {
-    Iterable<Recipe> findByNameContains(String name);
+    Iterable<Recipe> findByNameContainsIgnoreCase(String name);
 
     Iterable<Recipe> findByDiet(Diet diet);
 
