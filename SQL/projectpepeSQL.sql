@@ -55,7 +55,6 @@ CREATE TABLE token
     revoked                 BOOLEAN NOT NULL,
     expired                 BOOLEAN NOT NULL,
     id_person_auth          BIGINT NOT NULL,
-    UNIQUE(token_type),
     CONSTRAINT PK_token PRIMARY KEY(id_token),
     CONSTRAINT FK_token_person_auth FOREIGN KEY(id_person_auth)
                 REFERENCES person_auth(id_person_auth)

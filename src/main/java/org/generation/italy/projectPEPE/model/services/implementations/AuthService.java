@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -55,7 +57,8 @@ public class AuthService {
     public AuthResponse register(RegisterRequest request) {
         //qui nell'esempio si usava il builder al momento non lo sto usando per la questione della classe astratta
         System.out.println("AuthService: " + request);
-        Person person = new Person(0,request.getEmail(), request.getPassword(), Role.USER,
+        //ci salviamo la password cryptata per questioni di sicurezza (il nostro database non saprà mai la password reale dell'utente)
+        Person person = new Person(0,request.getEmail(), passwordEncoder.encode(request.getPassword()), Role.USER,
                 request.getFirstname(), request.getLastname(), request.getDob(),
                 request.getWeight(), request.getHeight(), request.getSex(),
                 request.getWork(),request.getDiet(),request.getPhysicalActivity());
@@ -83,12 +86,21 @@ public class AuthService {
         System.out.println("AuthService: findByEmail passed");
         String jwtToken = jwtService.generateToken(person);
         String refreshToken = jwtService.generateRefreshToken(person);
-        revokeAllUserTokens(person);
-        saveUserToken(person,jwtToken);
+        //in questo modo ci sarà una sola riga token per utente e non verrà generata una nuova riga ogni volta che l'utente fa l'autenticazione (da chiedere se va bene)
+        Token token = updateTokenByPerson(person,jwtToken);
+        tokenRepository.save(token);
+//        revokeAllUserTokens(person);
+//        saveUserToken(person,jwtToken);
         return AuthResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
+    }
+
+    private Token updateTokenByPerson(Person person,String newToken){
+        Token token = tokenRepository.findByPerson(person).orElseThrow();
+        token.setToken(newToken);
+        return token;
     }
 
     private void saveUserToken(Person person, String jwtToken) {
@@ -102,6 +114,7 @@ public class AuthService {
         tokenRepository.save(token);
     }
 
+    //se va tutto bene non dovrebbe più servire questo metodo
     private void revokeAllUserTokens(Person person) {
         var validUserTokens = tokenRepository.findAllValidTokenByUser(person.getId());
         if (validUserTokens.isEmpty())
@@ -127,8 +140,10 @@ public class AuthService {
                     .orElseThrow();
             if (jwtService.isTokenValid(refreshToken, person)){
                 String jwtToken = jwtService.generateToken(person);
-                revokeAllUserTokens(person);
-                saveUserToken(person,jwtToken);
+                Token token = updateTokenByPerson(person,jwtToken);
+                tokenRepository.save(token);
+//                revokeAllUserTokens(person);
+//                saveUserToken(person,jwtToken);
                 AuthResponse authResponse = AuthResponse.builder()
                         .accessToken(jwtToken)
                         .refreshToken(refreshToken)

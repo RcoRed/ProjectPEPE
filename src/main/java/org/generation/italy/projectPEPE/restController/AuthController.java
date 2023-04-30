@@ -42,6 +42,7 @@ public class AuthController {
     public ResponseEntity<AuthResponse> authenticate(
             @RequestBody AuthRequest request
     ) {
+        System.out.println("not forbidden");
         return ResponseEntity.ok(service.authenticate(request));
     }
 

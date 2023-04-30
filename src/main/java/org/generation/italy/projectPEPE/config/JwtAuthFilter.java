@@ -52,9 +52,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String jwt;
         final String userEmail;
         if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
+            System.out.println("JwtAuthFilter: Header errato");
             filterChain.doFilter(request, response);
             return;
         }
+        System.out.println("JwtAuthFilter: Header giusto");
         jwt = authHeader.substring(7);
         userEmail = jwtService.extractUsername(jwt);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){

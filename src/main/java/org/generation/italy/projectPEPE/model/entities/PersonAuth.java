@@ -6,8 +6,11 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.generation.italy.projectPEPE.model.entities.enums.Role;
 import org.hibernate.annotations.Type;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -18,7 +21,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "person_auth")
-public abstract class PersonAuth implements UserDetails {
+public abstract class PersonAuth implements UserDetails{
     @Id
     @Column(name = "id_person_auth")
     @GeneratedValue(generator = "person_auth_generator", strategy = GenerationType.SEQUENCE)
@@ -33,5 +36,42 @@ public abstract class PersonAuth implements UserDetails {
     private Role role;
     @OneToMany(mappedBy = "person")
     private List<Token> tokens;
+
+
+    //questi override servono all' authenticationManager (bisogna studiarli meglio)
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }

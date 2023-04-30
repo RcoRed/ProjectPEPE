@@ -1,5 +1,6 @@
 package org.generation.italy.projectPEPE.model.abstractions;
 
+import org.generation.italy.projectPEPE.model.entities.Person;
 import org.generation.italy.projectPEPE.model.entities.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,6 @@ public interface AbstractTokenRepository extends JpaRepository<Token,Long> {
     List<Token> findAllValidTokenByUser(long id);
 
     Optional<Token> findByToken(String token);
+
+    Optional<Token> findByPerson(Person person);
 }
