@@ -2,25 +2,26 @@ package org.generation.italy.projectPEPE.model.entities;
 
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.*;
-import org.generation.italy.projectPEPE.model.entities.enums.Diet;
-import org.generation.italy.projectPEPE.model.entities.enums.PhysicalActivity;
-import org.generation.italy.projectPEPE.model.entities.enums.Sex;
-import org.generation.italy.projectPEPE.model.entities.enums.Work;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.generation.italy.projectPEPE.model.entities.enums.*;
 import org.hibernate.annotations.Type;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
+@Getter
+@Setter
+//@SuperBuilder
+@NoArgsConstructor
 @Entity
+@PrimaryKeyJoinColumn(name = "id_person")
 @Table(name = "person")
-public class Person {
+public class Person extends PersonAuth{
     //dati generali user
-    @Id
-    @Column(name = "id_person")
-    @GeneratedValue(generator = "person_generator", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "person_generator", sequenceName = "person_sequence", allocationSize = 1)
-    private long id;
-
     private String firstname;
     private String lastname;
     private LocalDate dob;
@@ -54,11 +55,8 @@ public class Person {
     @Column(name = "calorie_req")
     private int calorieReq;
 
-    //dati accesso
-    private String mail;
-    private String password;
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    //@ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(
             name = "avoiding_food",
             joinColumns = @JoinColumn(name = "id_person"),
@@ -68,12 +66,10 @@ public class Person {
     @OneToMany
     private Set<FoodStorage> foodStorages;
 
-    public Person(){
-
-    }
-    public Person(long id, String firstname, String lastname, LocalDate dob, int weight,
-                  int height, Sex sex, Work work, Diet diet, PhysicalActivity physicalActivity, String mail, String password) {
-        this.id = id;
+    //costruttore senza i due Set
+    public Person(long id, String mail, String password, Role role, String firstname, String lastname, LocalDate dob, int weight,
+                  int height, Sex sex, Work work, Diet diet, PhysicalActivity physicalActivity) {
+        super(id,mail,password,role,null);
         this.firstname = firstname;
         this.lastname = lastname;
         this.dob = dob;
@@ -83,17 +79,14 @@ public class Person {
         this.work = work;
         this.diet = diet;
         this.physicalActivity = physicalActivity;
-        this.mail = mail;
-        this.password = password;
         this.idealWeight = calculateIdealWeight();
         this.calorieReq = calculateCalorieReq();
-        //da aggiungere calcolo calorieReq e idealWeight
     }
 
-    public Person(long id, String firstname, String lastname, LocalDate dob, int weight,
-                  int height, Sex sex, Work work, Diet diet, PhysicalActivity physicalActivity, String mail, String password,
+    public Person(long id, String mail, String password, Role role, String firstname, String lastname, LocalDate dob, int weight,
+                  int height, Sex sex, Work work, Diet diet, PhysicalActivity physicalActivity,
                   Set<Food> avoidFoods, Set<FoodStorage> foodStorages) {
-        this.id = id;
+        super(id,mail,password,role,null);
         this.firstname = firstname;
         this.lastname = lastname;
         this.dob = dob;
@@ -103,13 +96,25 @@ public class Person {
         this.work = work;
         this.diet = diet;
         this.physicalActivity = physicalActivity;
-        this.mail = mail;
-        this.password = password;
         this.avoidFoods = avoidFoods;
         this.foodStorages = foodStorages;
         this.idealWeight = calculateIdealWeight();
         this.calorieReq = calculateCalorieReq();
-        //da aggiungere calcolo calorieReq e idealWeight
+    }
+
+    public Person(Long id, String email, String password, Role role, int calorieReq, Diet diet, LocalDate dob, String firstname, int height, double idealWeight, String lastname, PhysicalActivity physicalActivity, Sex sex, int weight, Work work) {
+        super(id, email, password, role, null);
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.dob = dob;
+        this.weight = weight;
+        this.height = height;
+        this.sex = sex;
+        this.work = work;
+        this.diet = diet;
+        this.physicalActivity = physicalActivity;
+        this.idealWeight = idealWeight;
+        this.calorieReq = calorieReq;
     }
 
     private double calculateIdealWeight(){
@@ -173,131 +178,4 @@ public class Person {
         return LocalDate.now().getYear() - getDob().getYear();
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
-    public Work getWork() {
-        return work;
-    }
-
-    public void setWork(Work work) {
-        this.work = work;
-    }
-
-    public Diet getDiet() {
-        return diet;
-    }
-
-    public void setDiet(Diet diet) {
-        this.diet = diet;
-    }
-
-    public PhysicalActivity getPhysicalActivity() {
-        return physicalActivity;
-    }
-
-    public void setPhysicalActivity(PhysicalActivity physicalActivity) {
-        this.physicalActivity = physicalActivity;
-    }
-
-    public double getIdealWeight() {
-        return idealWeight;
-    }
-
-    public void setIdealWeight(double idealWeight) {
-        this.idealWeight = idealWeight;
-    }
-
-    public int getCalorieReq() {
-        return calorieReq;
-    }
-
-    public void setCalorieReq(int calorieReq) {
-        this.calorieReq = calorieReq;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<Food> getAvoidFoods() {
-        return avoidFoods;
-    }
-
-    public void setAvoidFoods(Set<Food> avoidFoods) {
-        this.avoidFoods = avoidFoods;
-    }
-
-    public Set<FoodStorage> getFoodStorages() {
-        return foodStorages;
-    }
-
-    public void setFoodStorages(Set<FoodStorage> foodStorages) {
-        this.foodStorages = foodStorages;
-    }
 }
