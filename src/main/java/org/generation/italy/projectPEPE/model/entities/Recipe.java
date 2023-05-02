@@ -22,7 +22,7 @@ public class Recipe {
     private String name;
     private String description;
 
-    @Column(name = "to_cook")
+    @Column(name = "to_cook", columnDefinition = "BIT")
     private boolean toCook;
 
     @Column(name = "image_file_path")
@@ -35,8 +35,8 @@ public class Recipe {
     @Column(name = "tot_preparation_time")
     private int totPreparationTime;
 
-    @Column(name = "number_ingredient")
-    private int numberIngredient;
+//    @Column(name = "number_ingredient")
+//    private int numberIngredient;
 
     //enum
     @Column(name = "total_cost", columnDefinition = "AVG_COST")
@@ -59,7 +59,7 @@ public class Recipe {
     @Type(PostgreSQLEnumType.class)
     private Dish dish;
 
-    //è un set!!!
+//    è un set!!!
     @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Ingredient> ingredients;
 
@@ -79,7 +79,7 @@ public class Recipe {
         this.dish = dish;
         this.totalCost = AvgCost.EXOTIC;
         this.totNutritionalValue = 0;
-        this.numberIngredient = 0;
+        //this.numberIngredient = 0;
     }
 
     public Recipe(long id, String name, String description, boolean toCook,
@@ -97,7 +97,7 @@ public class Recipe {
         this.ingredients = ingredients;
         this.totalCost = this.calculateAvgCost();
         this.totNutritionalValue = this.calculateTotNutritionalValue();
-        this.numberIngredient = this.calculateNumberIngredient();
+//        this.numberIngredient = this.calculateNumberIngredient();
     }
 
     private AvgCost calculateAvgCost(){
@@ -118,9 +118,9 @@ public class Recipe {
         return ingredients.stream().mapToDouble(i -> i.getFood().getKal()).sum();
     }
 
-    private int calculateNumberIngredient(){
-        return ingredients.size();
-    }
+//    private int calculateNumberIngredient(){
+//        return ingredients.size();
+//    }
 
     public long getId() {
         return id;
@@ -178,13 +178,13 @@ public class Recipe {
         this.totPreparationTime = totPreparationTime;
     }
 
-    public int getNumberIngredient() {
-        return numberIngredient;
-    }
-
-    public void setNumberIngredient(int numberIngredient) {
-        this.numberIngredient = numberIngredient;
-    }
+//    public int getNumberIngredient() {
+//        return numberIngredient;
+//    }
+//
+//    public void setNumberIngredient(int numberIngredient) {
+//        this.numberIngredient = numberIngredient;
+//    }
 
     public AvgCost getTotalCost() {
         return totalCost;
