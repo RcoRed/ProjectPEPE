@@ -26,10 +26,6 @@ public class RecipeController {
     }
 
     @GetMapping("/{id}")
-<<<<<<<<< Temporary merge branch 1
-    public ResponseEntity<SimpleRecipeDto> findById(@PathVariable long id){
-        Optional<Recipe> result = service.findRecipeById(id);
-=========
     public ResponseEntity<FullRecipeDto> findById(@PathVariable long id){
         Optional<Recipe> result = service.findRecipeById(id);
         if(result.isPresent()){
