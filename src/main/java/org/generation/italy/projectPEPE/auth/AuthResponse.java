@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.generation.italy.projectPEPE.dtos.PersonDto;
 
 @Data
 @Builder
@@ -16,4 +17,6 @@ public class AuthResponse {
 
 //    @JsonProperty("refresh_token")
     private String refreshToken;
+
+    private PersonDto person;
 }

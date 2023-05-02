@@ -14,7 +14,8 @@ import java.util.Optional;
 
 public interface AbstractGenericService {
 
-    Optional<Recipe> findById(long id);
+    Optional<Recipe> findRecipeById(long id);
+    Optional<Person> findPersonById(long id);
 
     Iterable<FoodStorage> findByPersonAndFood(Person person, Food food);
 

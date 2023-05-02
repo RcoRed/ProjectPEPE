@@ -1,6 +1,7 @@
 package org.generation.italy.projectPEPE.model.services.implementations;
 
 import org.generation.italy.projectPEPE.model.abstractions.AbstractFoodStorageRepository;
+import org.generation.italy.projectPEPE.model.abstractions.AbstractPersonRepository;
 import org.generation.italy.projectPEPE.model.abstractions.AbstractRecipeRepository;
 import org.generation.italy.projectPEPE.model.entities.Food;
 import org.generation.italy.projectPEPE.model.entities.FoodStorage;
@@ -20,17 +21,24 @@ public class GenericService implements AbstractGenericService {
 
     private AbstractFoodStorageRepository foodStorageRepo;
     private AbstractRecipeRepository recipeRepo;
+    private AbstractPersonRepository personRepo;
 
     @Autowired
-    public GenericService(AbstractFoodStorageRepository foodStorageRepo, AbstractRecipeRepository recipeRepo) {
+    public GenericService(AbstractFoodStorageRepository foodStorageRepo, AbstractRecipeRepository recipeRepo,
+                          AbstractPersonRepository personRepo) {
         this.foodStorageRepo = foodStorageRepo;
         this.recipeRepo = recipeRepo;
+        this.personRepo = personRepo;
     }
 
+    @Override
+    public Optional<Recipe> findRecipeById(long id) {
+        return recipeRepo.findById(id);
+    }
 
     @Override
-    public Optional<Recipe> findById(long id) {
-        return recipeRepo.findById(id);
+    public Optional<Person> findPersonById(long id) {
+        return personRepo.findById(id);
     }
 
     @Override

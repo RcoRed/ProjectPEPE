@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.generation.italy.projectPEPE.auth.AuthRequest;
 import org.generation.italy.projectPEPE.auth.AuthResponse;
 import org.generation.italy.projectPEPE.auth.RegisterRequest;
+import org.generation.italy.projectPEPE.dtos.PersonDto;
 import org.generation.italy.projectPEPE.model.abstractions.AbstractPersonRepository;
 import org.generation.italy.projectPEPE.model.abstractions.AbstractTokenRepository;
 import org.generation.italy.projectPEPE.model.entities.Person;
@@ -94,6 +95,7 @@ public class AuthService {
         return AuthResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
+                .person(PersonDto.fromEntity(person))
                 .build();
     }
 
