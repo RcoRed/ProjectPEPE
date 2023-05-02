@@ -1,5 +1,6 @@
 package org.generation.italy.projectPEPE.restController;
 
+import org.generation.italy.projectPEPE.dtos.FullRecipeDto;
 import org.generation.italy.projectPEPE.dtos.SimpleRecipeDto;
 import org.generation.italy.projectPEPE.model.entities.Person;
 import org.generation.italy.projectPEPE.model.entities.Recipe;
@@ -25,10 +26,10 @@ public class RecipeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SimpleRecipeDto> findById(@PathVariable long id){
+    public ResponseEntity<FullRecipeDto> findById(@PathVariable long id){
         Optional<Recipe> result = service.findById(id);
         if(result.isPresent()){
-            return ResponseEntity.ok().body(SimpleRecipeDto.fromEntity(result.get()));
+            return ResponseEntity.ok().body(FullRecipeDto.fromEntity(result.get()));
         }
         return ResponseEntity.notFound().build();
     }
