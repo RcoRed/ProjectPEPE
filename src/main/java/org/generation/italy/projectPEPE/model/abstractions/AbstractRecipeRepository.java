@@ -33,7 +33,7 @@ public interface AbstractRecipeRepository extends JpaRepository<Recipe, Long> {
 
     Iterable<Recipe> findByToCook(boolean toCook);
 
-    @Query( "from Person p JOIN FoodStorage fs ON fs.person = :person JOIN Ingredient i ON fs.food = i.food JOIN i.recipe r ")
+    @Query( "FROM Recipe r JOIN Ingredient i ON r = i.recipe JOIN FoodStorage fs ON i.food = fs.food JOIN fs.person p ")
     Iterable<Recipe> findRecipeByPersonStorage(Person person);
 }
 

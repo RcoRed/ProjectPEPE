@@ -100,6 +100,7 @@ public class GenericService implements AbstractGenericService {
         return recipeRepo.findAll();
     }
 
+    @Override
     public Iterable<Recipe> findRecipeByFoodStorageOfPerson(Person person) {
         Iterable<Recipe> recipes = recipeRepo.findRecipeByPersonStorage(person);
         Iterable<FoodStorage> foodStorage = foodStorageRepo.findByPerson(person);
@@ -107,17 +108,18 @@ public class GenericService implements AbstractGenericService {
         // recipe.getIngredients().stream().allMatch(ingredient -> StreamSupport.stream(foodStorage
         //                .spliterator(),false).forEach(fs -> ingredient.getFood().equals( fs.getFood())))
         //} );
-        int count = 0;
         List<Recipe> storageRecipes = new ArrayList<>();
         for (Recipe recipe : recipes) {
-            count = 0;
-            searchingredient:
+            int count = 0;
             for (Ingredient ingredient : recipe.getIngredients()) {
-                for (FoodStorage fs : foodStorage) {
-                    if (!ingredient.isOptional() && !ingredient.getFood().equals(fs.getFood())) {
-                        break searchingredient;
-                    }
+                if (ingredient.isOptional()){
                     count++;
+                    continue;
+                }
+                for (FoodStorage fs : foodStorage) {
+                    if (ingredient.getFood().equals(fs.getFood())) {
+                        count++;
+                    }
                 }
             }
             if (count == recipe.getIngredients().size()) {
