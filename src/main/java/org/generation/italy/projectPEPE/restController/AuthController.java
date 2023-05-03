@@ -34,7 +34,6 @@ public class AuthController {
         if(personOptional.isPresent()){
             return ResponseEntity.status(403).build();
         }
-        System.out.println("dentro register controller");
         return ResponseEntity.ok(service.register(request));
     }
 
@@ -42,7 +41,6 @@ public class AuthController {
     public ResponseEntity<AuthResponse> authenticate(
             @RequestBody AuthRequest request
     ) {
-        System.out.println("not forbidden");
         return ResponseEntity.ok(service.authenticate(request));
     }
 

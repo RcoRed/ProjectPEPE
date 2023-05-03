@@ -57,13 +57,11 @@ public class AuthService {
 
     public AuthResponse register(RegisterRequest request) {
         //qui nell'esempio si usava il builder al momento non lo sto usando per la questione della classe astratta
-        System.out.println("AuthService: " + request);
         //ci salviamo la password cryptata per questioni di sicurezza (il nostro database non saprà mai la password reale dell'utente)
         Person person = new Person(0,request.getEmail(), passwordEncoder.encode(request.getPassword()), Role.USER,
                 request.getFirstname(), request.getLastname(), request.getDob(),
                 request.getWeight(), request.getHeight(), request.getSex(),
                 request.getWork(),request.getDiet(),request.getPhysicalActivity());
-        System.out.println("AuthService: " + person + " persona creata");
         Person savedPerson = personRepository.save(person);
         String jwtToken = jwtService.generateToken(person);
         String refreshToken = jwtService.generateRefreshToken(person);
@@ -71,11 +69,11 @@ public class AuthService {
         return AuthResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
+                .person(PersonDto.fromEntity(savedPerson))
                 .build();
     }
 
     public AuthResponse authenticate(AuthRequest request) {
-        System.out.println("AuthService/authenticate: " + request + " email: " + request.getEmail());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -84,7 +82,6 @@ public class AuthService {
         );
         Person person = personRepository.findByEmail(request.getEmail())
                 .orElseThrow();
-        System.out.println("AuthService: findByEmail passed");
         String jwtToken = jwtService.generateToken(person);
         String refreshToken = jwtService.generateRefreshToken(person);
         //in questo modo ci sarà una sola riga token per utente e non verrà generata una nuova riga ogni volta che l'utente fa l'autenticazione (da chiedere se va bene)

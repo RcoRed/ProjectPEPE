@@ -44,40 +44,40 @@ class AbstractRecipeRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        recipe1 = new Recipe(0,RECIPE_NAME1,RECIPE_DESCRIPTION1,true,
-                IMAGE_FILE_PATH1,2,Difficulty.MEDIUM,Diet.VEGETARIAN,Dish.FIRST);
-        em.persist(recipe1);
-        recipe2 = new Recipe(0,RECIPE_NAME2,RECIPE_DESCRIPTION1,true,
-                IMAGE_FILE_PATH1,2,Difficulty.LOW,Diet.VEGAN,Dish.FIRST);
-        em.persist(recipe2);
-        recipe3 = new Recipe(0,RECIPE_NAME_NOT_PRESENT,RECIPE_DESCRIPTION1,false,
-                IMAGE_FILE_PATH1,2,Difficulty.MEDIUM,Diet.VEGAN,Dish.FIRST);
-        em.persist(recipe3);
-        person1 = new Person(0,MAIL1,PASSWORD1,Role.USER,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
-            Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH);
-        em.persist(person1);
-        person2 = new Person(0,MAIL1,PASSWORD1,Role.USER,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
-                Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH);
-        em.persist(person2);
-        food1 = new Food(0,FOOD_NAME1,null, AvgCost.MEDIUM,0,0,0,0,0,0,0);
-        em.persist(food1);
-        food2 = new Food(0,FOOD_NAME2,null,AvgCost.EXOTIC,0,0,0,0,0,0,0);
-        em.persist(food2);
-
-        ingredient1 = new Ingredient(0,recipe1,food1,100, null, true);
-        em.persist(ingredient1);
-        ingredient2 = new Ingredient(0,recipe2,food2,100, null, true);
-        em.persist(ingredient2);
-        ingredient3 = new Ingredient(0,recipe3,food1,100, null, true);
-        em.persist(ingredient3);
-        ingredient4 = new Ingredient(0,recipe1,food2,100, null, true);
-        em.persist(ingredient4);
-
-        avoidingFood1 = new AvoidingFood(0,person1,food1);
-        em.persist(avoidingFood1);
-        avoidingFood2 =new AvoidingFood(0,person2,food2);
-        em.persist(avoidingFood2);
-        em.flush();
+//        recipe1 = new Recipe(0,RECIPE_NAME1,RECIPE_DESCRIPTION1,true,
+//                IMAGE_FILE_PATH1,2,Difficulty.MEDIUM,Diet.VEGETARIAN,Dish.FIRST);
+//        em.persist(recipe1);
+//        recipe2 = new Recipe(0,RECIPE_NAME2,RECIPE_DESCRIPTION1,true,
+//                IMAGE_FILE_PATH1,2,Difficulty.LOW,Diet.VEGAN,Dish.FIRST);
+//        em.persist(recipe2);
+//        recipe3 = new Recipe(0,RECIPE_NAME_NOT_PRESENT,RECIPE_DESCRIPTION1,false,
+//                IMAGE_FILE_PATH1,2,Difficulty.MEDIUM,Diet.VEGAN,Dish.FIRST);
+//        em.persist(recipe3);
+//        person1 = new Person(0,MAIL1,PASSWORD1,Role.USER,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
+//            Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH);
+//        em.persist(person1);
+//        person2 = new Person(0,MAIL1,PASSWORD1,Role.USER,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
+//                Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH);
+//        em.persist(person2);
+//        food1 = new Food(0,FOOD_NAME1,null, AvgCost.MEDIUM,0,0,0,0,0,0,0);
+//        em.persist(food1);
+//        food2 = new Food(0,FOOD_NAME2,null,AvgCost.EXOTIC,0,0,0,0,0,0,0);
+//        em.persist(food2);
+//
+//        ingredient1 = new Ingredient(0,recipe1,food1,100, null, true);
+//        em.persist(ingredient1);
+//        ingredient2 = new Ingredient(0,recipe2,food2,100, null, true);
+//        em.persist(ingredient2);
+//        ingredient3 = new Ingredient(0,recipe3,food1,100, null, true);
+//        em.persist(ingredient3);
+//        ingredient4 = new Ingredient(0,recipe1,food2,100, null, true);
+//        em.persist(ingredient4);
+//
+//        avoidingFood1 = new AvoidingFood(0,person1,food1);
+//        em.persist(avoidingFood1);
+//        avoidingFood2 =new AvoidingFood(0,person2,food2);
+//        em.persist(avoidingFood2);
+//        em.flush();
     }
 
     @AfterEach
