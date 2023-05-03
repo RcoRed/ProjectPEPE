@@ -1,9 +1,11 @@
 package org.generation.italy.projectPEPE.model.services.implementations;
 
 import org.generation.italy.projectPEPE.model.abstractions.AbstractFoodStorageRepository;
-import org.generation.italy.projectPEPE.model.abstractions.AbstractIngredientRepository;
 import org.generation.italy.projectPEPE.model.abstractions.AbstractRecipeRepository;
-import org.generation.italy.projectPEPE.model.entities.*;
+import org.generation.italy.projectPEPE.model.entities.Food;
+import org.generation.italy.projectPEPE.model.entities.FoodStorage;
+import org.generation.italy.projectPEPE.model.entities.Person;
+import org.generation.italy.projectPEPE.model.entities.Recipe;
 import org.generation.italy.projectPEPE.model.entities.enums.Diet;
 import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
 import org.generation.italy.projectPEPE.model.entities.enums.Dish;
@@ -20,19 +22,27 @@ public class GenericService implements AbstractGenericService {
     private AbstractFoodStorageRepository foodStorageRepo;
     private AbstractRecipeRepository recipeRepo;
     private AbstractIngredientRepository ingredientRepo;
+    private AbstractPersonRepository personRepo;
 
     @Autowired
     public GenericService(AbstractFoodStorageRepository foodStorageRepo, AbstractRecipeRepository recipeRepo,
                           AbstractIngredientRepository ingredientRepo) {
+    public GenericService(AbstractFoodStorageRepository foodStorageRepo, AbstractRecipeRepository recipeRepo,
+                          AbstractPersonRepository personRepo) {
         this.foodStorageRepo = foodStorageRepo;
         this.recipeRepo = recipeRepo;
         this.ingredientRepo = ingredientRepo;
+        this.personRepo = personRepo;
     }
 
+    @Override
+    public Optional<Recipe> findRecipeById(long id) {
+        return recipeRepo.findById(id);
+    }
 
     @Override
-    public Optional<Recipe> findById(long id) {
-        return recipeRepo.findById(id);
+    public Optional<Person> findPersonById(long id) {
+        return personRepo.findById(id);
     }
 
     @Override
@@ -53,11 +63,6 @@ public class GenericService implements AbstractGenericService {
     @Override
     public Iterable<Recipe> findByDish(Dish dish) {
         return recipeRepo.findByDish(dish);
-    }
-
-    @Override
-    public Set<Ingredient> findIngredientsByRecipe(Recipe recipe) {
-        return ingredientRepo.findIngredientsByRecipe(recipe);
     }
 
     @Override

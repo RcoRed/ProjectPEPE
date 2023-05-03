@@ -30,7 +30,7 @@ public class RecipeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<FullRecipeDto> findById(@PathVariable long id){
-        Optional<Recipe> result = service.findById(id);
+        Optional<Recipe> result = service.findRecipeById(id);
         if(result.isPresent()){
             Recipe recipe = result.get();
             Set<Ingredient> ingredients = service.findIngredientsByRecipe(result.get());
