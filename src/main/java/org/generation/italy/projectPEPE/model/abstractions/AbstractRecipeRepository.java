@@ -29,4 +29,9 @@ public interface AbstractRecipeRepository extends JpaRepository<Recipe, Long> {
     Iterable<Recipe> findByDifficulty(Difficulty difficulty);
 
     Iterable<Recipe> findByToCook(boolean toCook);
+
+    @Query( "from Person p JOIN FoodStorage fs ON fs.person = :person JOIN Ingredient i ON fs.food = i.food JOIN i.recipe r ")
+    Iterable<Recipe> findRecipeByPersonStorage(Person person);
 }
+
+

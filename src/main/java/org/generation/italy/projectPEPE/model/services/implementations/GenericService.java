@@ -3,10 +3,7 @@ package org.generation.italy.projectPEPE.model.services.implementations;
 import org.generation.italy.projectPEPE.model.abstractions.AbstractFoodStorageRepository;
 import org.generation.italy.projectPEPE.model.abstractions.AbstractPersonRepository;
 import org.generation.italy.projectPEPE.model.abstractions.AbstractRecipeRepository;
-import org.generation.italy.projectPEPE.model.entities.Food;
-import org.generation.italy.projectPEPE.model.entities.FoodStorage;
-import org.generation.italy.projectPEPE.model.entities.Person;
-import org.generation.italy.projectPEPE.model.entities.Recipe;
+import org.generation.italy.projectPEPE.model.entities.*;
 import org.generation.italy.projectPEPE.model.entities.enums.Diet;
 import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
 import org.generation.italy.projectPEPE.model.entities.enums.Dish;
@@ -88,5 +85,16 @@ public class GenericService implements AbstractGenericService {
     public Iterable<Recipe> findAll() {
         return recipeRepo.findAll();
     }
+
+    public Iterable<Recipe> findRecipeByFoodStorageOfPerson(Person person){
+        Iterable<Recipe>recipes =  recipeRepo.findRecipeByPersonStorage(person);
+        Iterable<FoodStorage> foodStorage = foodStorageRepo.findByPerson(person);
+        for( Recipe recipe:recipes){
+            for(Ingredient i: recipe.getIngredients()){
+                for(foodStorage)
+            }
+        }
+        return null;
+    };
 
 }
