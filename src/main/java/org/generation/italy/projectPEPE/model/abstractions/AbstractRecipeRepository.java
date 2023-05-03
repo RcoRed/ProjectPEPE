@@ -1,5 +1,6 @@
 package org.generation.italy.projectPEPE.model.abstractions;
 
+import org.generation.italy.projectPEPE.model.entities.Ingredient;
 import org.generation.italy.projectPEPE.model.entities.Person;
 import org.generation.italy.projectPEPE.model.entities.Recipe;
 import org.generation.italy.projectPEPE.model.entities.enums.Diet;
@@ -7,6 +8,8 @@ import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
 import org.generation.italy.projectPEPE.model.entities.enums.Dish;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.Set;
 
 public interface AbstractRecipeRepository extends JpaRepository<Recipe, Long> {
     Iterable<Recipe> findByNameContainsIgnoreCase(String name);

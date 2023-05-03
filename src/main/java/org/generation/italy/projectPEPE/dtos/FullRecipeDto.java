@@ -1,13 +1,15 @@
 package org.generation.italy.projectPEPE.dtos;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import org.generation.italy.projectPEPE.model.entities.Ingredient;
 import org.generation.italy.projectPEPE.model.entities.Recipe;
 import org.generation.italy.projectPEPE.model.entities.enums.AvgCost;
-import org.generation.italy.projectPEPE.model.entities.enums.Diet;
-import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
-import org.generation.italy.projectPEPE.model.entities.enums.Dish;
 
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class FullRecipeDto {
     private long id;
@@ -21,10 +23,26 @@ public class FullRecipeDto {
     private String difficulty;
     private String diet;
     private String dish;
-    private Set<Ingredient> ingredients;
+    private Set<String> ingredients;
+
+//    public FullRecipeDto(long id, String name, String description, String toCook, String imageFilePath, double totNutritionalValue,
+//                         int totPreparationTime, String difficulty, String diet, String dish) {
+//        this.id = id;
+//        this.name = name;
+//        this.description = description;
+//        this.toCook = toCook;
+//        this.imageFilePath = imageFilePath;
+//        this.totNutritionalValue = totNutritionalValue;
+//        this.totPreparationTime = totPreparationTime;
+//        this.totalCost = AvgCost.EXOTIC;
+//        this.difficulty = difficulty;
+//        this.diet = diet;
+//        this.dish = dish;
+//    }
 
     public FullRecipeDto(long id, String name, String description, String toCook, String imageFilePath, double totNutritionalValue,
-                         int totPreparationTime, String difficulty, String diet, String dish) {
+                         int totPreparationTime, String difficulty, String diet, String dish, AvgCost totalCost,
+                         Set<String> ingredients) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -32,36 +50,26 @@ public class FullRecipeDto {
         this.imageFilePath = imageFilePath;
         this.totNutritionalValue = totNutritionalValue;
         this.totPreparationTime = totPreparationTime;
-        this.totalCost = AvgCost.EXOTIC;
-        this.difficulty = difficulty;
-        this.diet = diet;
-        this.dish = dish;
-    }
-
-    public FullRecipeDto(long id, String name, String description, String toCook, String imageFilePath, double totNutritionalValue,
-                         int totPreparationTime, String difficulty, String diet, String dish,
-                         Set<Ingredient> ingredients) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.toCook = toCook;
-        this.imageFilePath = imageFilePath;
-        this.totNutritionalValue = totNutritionalValue;
-        this.totPreparationTime = totPreparationTime;
-        this.totalCost = this.calculateAvgCost();
-        this.difficulty = difficulty;
-        this.diet = diet;
-        this.dish = dish;
         this.ingredients = ingredients;
+        this.totalCost = totalCost;
+        this.difficulty = difficulty;
+        this.diet = diet;
+        this.dish = dish;
     }
 
     public static FullRecipeDto fromEntity(Recipe recipe){
+        System.out.println("AAAAAAAAAAAAAAAAAA " + recipe.getIngredients());
         return new FullRecipeDto(recipe.getId(),recipe.getName(),recipe.getDescription(), isToCook(recipe.isToCook()),
                 recipe.getImageFilePath(), recipe.getTotNutritionalValue(), recipe.getTotPreparationTime(),
-                recipe.getDifficulty().getDifficultyName(), recipe.getDiet().getDietName(), recipe.getDish().getDishName());
+                recipe.getDifficulty().getDifficultyName(), recipe.getDiet().getDietName(), recipe.getDish().getDishName(),
+                calculateAvgCost(recipe.getIngredients()), getIngredientsName(recipe.getIngredients()));
     }
 
-    private AvgCost calculateAvgCost(){
+    private static Set<String> getIngredientsName(Set<Ingredient> ingredients){
+        return ingredients.stream().map(e -> e.getFood().getName()).collect(Collectors.toSet());
+    }
+
+    private static AvgCost calculateAvgCost(Set<Ingredient> ingredients){
         double avg;
         int total = 0;
         for(Ingredient f : ingredients){
@@ -87,11 +95,11 @@ public class FullRecipeDto {
         this.id = id;
     }
 
-    public Set<Ingredient> getIngredients() {
+    public Set<String> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Set<Ingredient> ingredients) {
+    public void setIngredients(Set<String> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -143,13 +151,13 @@ public class FullRecipeDto {
         this.totPreparationTime = totPreparationTime;
     }
 
-    public AvgCost getTotalCost() {
-        return totalCost;
-    }
-
-    public void setTotalCost(AvgCost totalCost) {
-        this.totalCost = totalCost;
-    }
+//    public AvgCost getTotalCost() {
+//        return totalCost;
+//    }
+//
+//    public void setTotalCost(AvgCost totalCost) {
+//        this.totalCost = totalCost;
+//    }
 
     public String getDifficulty() {
         return difficulty;
