@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AbstractFoodStorageRepository extends JpaRepository<FoodStorage,Long> {
     Iterable<FoodStorage> findByPersonAndFood(Person person,Food food);
+
+    Iterable<FoodStorage> findByPerson(Person person);
 }

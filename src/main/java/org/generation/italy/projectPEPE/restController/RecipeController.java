@@ -2,6 +2,7 @@ package org.generation.italy.projectPEPE.restController;
 
 import org.generation.italy.projectPEPE.dtos.FullRecipeDto;
 import org.generation.italy.projectPEPE.dtos.SimpleRecipeDto;
+import org.generation.italy.projectPEPE.model.entities.Ingredient;
 import org.generation.italy.projectPEPE.model.entities.Person;
 import org.generation.italy.projectPEPE.model.entities.Recipe;
 import org.generation.italy.projectPEPE.model.entities.enums.Diet;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.Set;
+
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/recipe")
@@ -29,7 +32,10 @@ public class RecipeController {
     public ResponseEntity<FullRecipeDto> findById(@PathVariable long id){
         Optional<Recipe> result = service.findRecipeById(id);
         if(result.isPresent()){
-            return ResponseEntity.ok().body(FullRecipeDto.fromEntity(result.get()));
+            Recipe recipe = result.get();
+            Set<Ingredient> ingredients = service.findIngredientsByRecipe(result.get());
+            recipe.setIngredients(ingredients);
+            return ResponseEntity.ok().body(FullRecipeDto.fromEntity(recipe));
         }
         return ResponseEntity.notFound().build();
     }

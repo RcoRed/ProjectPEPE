@@ -1,9 +1,6 @@
 package org.generation.italy.projectPEPE.model.services.abstractions;
 
-import org.generation.italy.projectPEPE.model.entities.Food;
-import org.generation.italy.projectPEPE.model.entities.FoodStorage;
-import org.generation.italy.projectPEPE.model.entities.Person;
-import org.generation.italy.projectPEPE.model.entities.Recipe;
+import org.generation.italy.projectPEPE.model.entities.*;
 import org.generation.italy.projectPEPE.model.entities.enums.Diet;
 import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
 import org.generation.italy.projectPEPE.model.entities.enums.Dish;
@@ -11,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
+import java.util.Set;
 
 public interface AbstractGenericService {
 
@@ -24,6 +22,8 @@ public interface AbstractGenericService {
     Iterable<Recipe> findByDiet(Diet diet);
 
     Iterable<Recipe> findByDish(Dish dish);
+
+    Set<Ingredient> findIngredientsByRecipe(Recipe recipe);
 
     Iterable<Recipe> findByPersonDiet(Person person);
 

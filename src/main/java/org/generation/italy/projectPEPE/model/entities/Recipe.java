@@ -65,22 +65,22 @@ public class Recipe {
 
     public Recipe() {
     }
-    public Recipe(long id, String name, String description, boolean toCook,
-                  String imageFilePath, int totPreparationTime, Difficulty difficulty,
-                  Diet diet, Dish dish) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.toCook = toCook;
-        this.imageFilePath = imageFilePath;
-        this.totPreparationTime = totPreparationTime;
-        this.difficulty = difficulty;
-        this.diet = diet;
-        this.dish = dish;
-        this.totalCost = AvgCost.EXOTIC;
-        this.totNutritionalValue = 0;
-        //this.numberIngredient = 0;
-    }
+//    public Recipe(long id, String name, String description, boolean toCook,
+//                  String imageFilePath, int totPreparationTime, Difficulty difficulty,
+//                  Diet diet, Dish dish) {
+//        this.id = id;
+//        this.name = name;
+//        this.description = description;
+//        this.toCook = toCook;
+//        this.imageFilePath = imageFilePath;
+//        this.totPreparationTime = totPreparationTime;
+//        this.difficulty = difficulty;
+//        this.diet = diet;
+//        this.dish = dish;
+//        this.totalCost = AvgCost.EXOTIC;
+//        this.totNutritionalValue = 0;
+//        //this.numberIngredient = 0;
+//    }
 
     public Recipe(long id, String name, String description, boolean toCook,
                   String imageFilePath, int totPreparationTime, Difficulty difficulty,
