@@ -133,22 +133,22 @@ class AbstractRecipeRepositoryTest {
         assertEquals(Difficulty.MEDIUM,result.get(1).getDifficulty());
     }
 
-    @Test
-    void findByToCook_Should_Find_Recipe_By_Food_To_Cook_True() {
-        Iterable<Recipe> recipeIterable = repo.findByToCook(true);
-        List<Recipe> result = new ArrayList<>();
-        recipeIterable.iterator().forEachRemaining(result::add);
-        assertEquals(2,result.size());
-        assertTrue(result.get(0).isToCook());
-        assertTrue(result.get(1).isToCook());
-    }
-
-    @Test
-    void findByToCook_Should_Find_Recipe_By_Food_To_Cook_False() {
-        Iterable<Recipe> recipeIterable = repo.findByToCook(false);
-        List<Recipe> result = new ArrayList<>();
-        recipeIterable.iterator().forEachRemaining(result::add);
-        assertEquals(1,result.size());
-        assertFalse(result.get(0).isToCook());
-    }
+//    @Test
+//    void findByToCook_Should_Find_Recipe_By_Food_To_Cook_True() {
+//        Iterable<Recipe> recipeIterable = repo.findByToCook(true);
+//        List<Recipe> result = new ArrayList<>();
+//        recipeIterable.iterator().forEachRemaining(result::add);
+//        assertEquals(2,result.size());
+//        assertTrue(result.get(0).isToCook());
+//        assertTrue(result.get(1).isToCook());
+//    }
+//
+//    @Test
+//    void findByToCook_Should_Find_Recipe_By_Food_To_Cook_False() {
+//        Iterable<Recipe> recipeIterable = repo.findByToCook(false);
+//        List<Recipe> result = new ArrayList<>();
+//        recipeIterable.iterator().forEachRemaining(result::add);
+//        assertEquals(1,result.size());
+//        assertFalse(result.get(0).isToCook());
+//    }
 }

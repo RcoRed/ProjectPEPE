@@ -21,7 +21,7 @@ import java.util.stream.StreamSupport;
 @Getter
 @Setter
 public class PersonDto {
-//ciao
+    private long id;
     private String firstname;
     private String lastname;
     private LocalDate dob;
@@ -33,10 +33,12 @@ public class PersonDto {
     private PhysicalActivity physicalActivity;
     private double idealWeight;
     private int calorieReq;
+    private String email;
 
-    public PersonDto(String firstname, String lastname, LocalDate dob,
+    public PersonDto(long id, String firstname, String lastname, LocalDate dob,
                      int weight, int height, Sex sex, Work work, Diet diet,
-                     PhysicalActivity physicalActivity, double idealWeight, int calorieReq) {
+                     PhysicalActivity physicalActivity, double idealWeight, int calorieReq, String email) {
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.dob = dob;
@@ -48,12 +50,13 @@ public class PersonDto {
         this.physicalActivity = physicalActivity;
         this.idealWeight = idealWeight;
         this.calorieReq = calorieReq;
+        this.email = email;
     }
 
     public static PersonDto fromEntity(Person person){
-        return new PersonDto(person.getFirstname(), person.getLastname(), person.getDob(),
+        return new PersonDto(person.getId(), person.getFirstname(), person.getLastname(), person.getDob(),
                 person.getWeight(), person.getHeight(), person.getSex(), person.getWork(),
-                person.getDiet(), person.getPhysicalActivity(), person.getIdealWeight(), person.getCalorieReq());
+                person.getDiet(), person.getPhysicalActivity(), person.getIdealWeight(), person.getCalorieReq(), person.getEmail());
     }
 
     public static Iterable<PersonDto> fromEntityIterator(Iterable<Person> people){

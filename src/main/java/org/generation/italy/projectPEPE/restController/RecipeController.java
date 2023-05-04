@@ -39,7 +39,7 @@ public class RecipeController {
         }
         return ResponseEntity.notFound().build();
     }
-
+    ///////
     @GetMapping("/avoidIngredients")
     public ResponseEntity<Iterable<SimpleRecipeDto>> findByAvoidingIngredients(Person person){
         Iterable<Recipe> result = service.findByAvoidingIngredients(person);
