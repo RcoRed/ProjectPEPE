@@ -109,7 +109,7 @@ public class Recipe {
             }
             total += f.getFood().getAvgCost().getCostLevel();
         }
-        avg = total / ingredients.size();
+        avg = (float)total / ingredients.size();
 
         return AvgCost.getEnumByValue(avg);
     }
@@ -146,7 +146,7 @@ public class Recipe {
         this.description = description;
     }
 
-    public boolean isToCook() {
+    public boolean getToCook() {
         return toCook;
     }
 

@@ -44,14 +44,14 @@ class AbstractRecipeRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        recipe1 = new Recipe(0,RECIPE_NAME1,RECIPE_DESCRIPTION1,true,
-                IMAGE_FILE_PATH1,2,Difficulty.MEDIUM,Diet.VEGETARIAN,Dish.FIRST);
-        em.persist(recipe1);
-        recipe2 = new Recipe(0,RECIPE_NAME2,RECIPE_DESCRIPTION1,true,
-                IMAGE_FILE_PATH1,2,Difficulty.LOW,Diet.VEGAN,Dish.FIRST);
-        em.persist(recipe2);
-        recipe3 = new Recipe(0,RECIPE_NAME_NOT_PRESENT,RECIPE_DESCRIPTION1,false,
-                IMAGE_FILE_PATH1,2,Difficulty.MEDIUM,Diet.VEGAN,Dish.FIRST);
+//        recipe1 = new Recipe(0,RECIPE_NAME1,RECIPE_DESCRIPTION1,true,
+//                IMAGE_FILE_PATH1,2,Difficulty.MEDIUM,Diet.VEGETARIAN,Dish.FIRST);
+//        em.persist(recipe1);
+//        recipe2 = new Recipe(0,RECIPE_NAME2,RECIPE_DESCRIPTION1,true,
+//                IMAGE_FILE_PATH1,2,Difficulty.LOW,Diet.VEGAN,Dish.FIRST);
+//        em.persist(recipe2);
+//        recipe3 = new Recipe(0,RECIPE_NAME_NOT_PRESENT,RECIPE_DESCRIPTION1,false,
+//                IMAGE_FILE_PATH1,2,Difficulty.MEDIUM,Diet.VEGAN,Dish.FIRST);
         em.persist(recipe3);
         person1 = new Person(0,MAIL1,PASSWORD1,Role.USER,FIRSTNAME1,LASTNAME1,DOB1,WEIGHT1,HEIGHT1,SEX1,
             Work.ACTIVE,Diet.VEGAN,PhysicalActivity.HIGH);
@@ -139,8 +139,8 @@ class AbstractRecipeRepositoryTest {
         List<Recipe> result = new ArrayList<>();
         recipeIterable.iterator().forEachRemaining(result::add);
         assertEquals(2,result.size());
-        assertTrue(result.get(0).isToCook());
-        assertTrue(result.get(1).isToCook());
+        assertTrue(result.get(0).getToCook());
+        assertTrue(result.get(1).getToCook());
     }
 
     @Test
@@ -149,6 +149,6 @@ class AbstractRecipeRepositoryTest {
         List<Recipe> result = new ArrayList<>();
         recipeIterable.iterator().forEachRemaining(result::add);
         assertEquals(1,result.size());
-        assertFalse(result.get(0).isToCook());
+        assertFalse(result.get(0).getToCook());
     }
 }

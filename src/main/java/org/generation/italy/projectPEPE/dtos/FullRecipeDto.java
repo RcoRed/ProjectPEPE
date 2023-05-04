@@ -1,13 +1,9 @@
 package org.generation.italy.projectPEPE.dtos;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
 import org.generation.italy.projectPEPE.model.entities.Ingredient;
 import org.generation.italy.projectPEPE.model.entities.Recipe;
 import org.generation.italy.projectPEPE.model.entities.enums.AvgCost;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,10 +15,10 @@ public class FullRecipeDto {
     private String imageFilePath;
     private double totNutritionalValue;
     private int totPreparationTime;
-    private AvgCost totalCost;
     private String difficulty;
     private String diet;
     private String dish;
+    private AvgCost totalCost; // ?????????
     private Set<String> ingredients;
 
 //    public FullRecipeDto(long id, String name, String description, String toCook, String imageFilePath, double totNutritionalValue,
@@ -50,16 +46,16 @@ public class FullRecipeDto {
         this.imageFilePath = imageFilePath;
         this.totNutritionalValue = totNutritionalValue;
         this.totPreparationTime = totPreparationTime;
-        this.ingredients = ingredients;
-        this.totalCost = totalCost;
         this.difficulty = difficulty;
         this.diet = diet;
         this.dish = dish;
+        this.totalCost = totalCost;
+        this.ingredients = ingredients;
     }
 
     public static FullRecipeDto fromEntity(Recipe recipe){
-        System.out.println("AAAAAAAAAAAAAAAAAA " + recipe.getIngredients());
-        return new FullRecipeDto(recipe.getId(),recipe.getName(),recipe.getDescription(), isToCook(recipe.isToCook()),
+        System.out.println("AAAAAAAAAAAAAAAAAA " + checkIsToCook(recipe.getToCook()));
+        return new FullRecipeDto(recipe.getId(), recipe.getName(), recipe.getDescription(), checkIsToCook(recipe.getToCook()),
                 recipe.getImageFilePath(), recipe.getTotNutritionalValue(), recipe.getTotPreparationTime(),
                 recipe.getDifficulty().getDifficultyName(), recipe.getDiet().getDietName(), recipe.getDish().getDishName(),
                 calculateAvgCost(recipe.getIngredients()), getIngredientsName(recipe.getIngredients()));
@@ -78,12 +74,12 @@ public class FullRecipeDto {
             }
             total += f.getFood().getAvgCost().getCostLevel();
         }
-        avg = total / ingredients.size();
+        avg = (float)total / ingredients.size();
 
         return AvgCost.getEnumByValue(avg);
     }
 
-    private static String isToCook(boolean toCook){
+    private static String checkIsToCook(boolean toCook){
         return toCook ? "Sì" : "No";
     }
 
@@ -119,7 +115,7 @@ public class FullRecipeDto {
         this.description = description;
     }
 
-    public String isToCook() {
+    public String getToCook() {
         return toCook;
     }
 
