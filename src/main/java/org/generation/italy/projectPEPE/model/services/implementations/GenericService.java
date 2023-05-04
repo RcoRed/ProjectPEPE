@@ -10,6 +10,8 @@ import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
 import org.generation.italy.projectPEPE.model.entities.enums.Dish;
 import org.generation.italy.projectPEPE.model.services.abstractions.AbstractGenericService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -96,8 +98,9 @@ public class GenericService implements AbstractGenericService {
     }
 
     @Override
-    public Iterable<Recipe> findAll() {
-        return recipeRepo.findAll();
+    public Iterable<Recipe> findAll(int nPage,int nRecipes) {
+        Pageable pageable = PageRequest.of(nPage,nRecipes);
+        return recipeRepo.findAll(pageable);
     }
 
     @Override

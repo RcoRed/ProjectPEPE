@@ -52,7 +52,9 @@ public class RecipeController {
                                                                    @RequestParam(required = false) Dish dish,
                                                                    @RequestParam(required = false) Person person,
                                                                    @RequestParam(required = false) Difficulty difficulty,
-                                                                   @RequestParam(required = false) Boolean toCook){
+                                                                   @RequestParam(required = false) Boolean toCook,
+                                                                   @RequestParam(required = false) Integer nPage,
+                                                                   @RequestParam(required = false) Integer nRecipes){
         Iterable<Recipe> result;
         if (recipeName != null){
             result = service.findByNameContains(recipeName);
@@ -78,7 +80,10 @@ public class RecipeController {
             result = service.findByToCook(toCook);
             return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
         }
-        result = service.findAll();
-        return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
+        if(nPage != null && nRecipes != null){
+            result = service.findAll(nPage,nRecipes);
+            return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
+        }
+        return ResponseEntity.badRequest().build();
     }
 }
