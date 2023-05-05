@@ -18,7 +18,7 @@ public class FullRecipeDto {
     private String difficulty;
     private String diet;
     private String dish;
-    private AvgCost totalCost; // ?????????
+    private String totalCost;
     private Set<String> ingredients;
 
 //    public FullRecipeDto(long id, String name, String description, String toCook, String imageFilePath, double totNutritionalValue,
@@ -37,7 +37,7 @@ public class FullRecipeDto {
 //    }
 
     public FullRecipeDto(long id, String name, String description, String toCook, String imageFilePath, double totNutritionalValue,
-                         int totPreparationTime, String difficulty, String diet, String dish, AvgCost totalCost,
+                         int totPreparationTime, String difficulty, String diet, String dish, String totalCost,
                          Set<String> ingredients) {
         this.id = id;
         this.name = name;
@@ -58,7 +58,7 @@ public class FullRecipeDto {
         return new FullRecipeDto(recipe.getId(), recipe.getName(), recipe.getDescription(), checkIsToCook(recipe.getToCook()),
                 recipe.getImageFilePath(), recipe.getTotNutritionalValue(), recipe.getTotPreparationTime(),
                 recipe.getDifficulty().getDifficultyName(), recipe.getDiet().getDietName(), recipe.getDish().getDishName(),
-                calculateAvgCost(recipe.getIngredients()), getIngredientsName(recipe.getIngredients()));
+                calculateAvgCost(recipe.getIngredients()).toString(), getIngredientsName(recipe.getIngredients()));
     }
 
     private static Set<String> getIngredientsName(Set<Ingredient> ingredients){
@@ -147,13 +147,22 @@ public class FullRecipeDto {
         this.totPreparationTime = totPreparationTime;
     }
 
-//    public AvgCost getTotalCost() {
-//        return totalCost;
-//    }
-//
-//    public void setTotalCost(AvgCost totalCost) {
-//        this.totalCost = totalCost;
-//    }
+    public String getTotalCost() {
+        if (totalCost.equals(AvgCost.LOW.toString())){
+            return "basso";
+        } if (totalCost.equals(AvgCost.MEDIUM.toString())){
+            return "medio";
+        } if(totalCost.equals(AvgCost.HIGH.toString())){
+            return "alto";
+        } if(totalCost.equals(AvgCost.EXOTIC.toString())){
+            return "esotico";
+        }
+        return totalCost;
+    }
+
+    public void setTotalCost(String totalCost) {
+        this.totalCost = totalCost;
+    }
 
     public String getDifficulty() {
         return difficulty;
