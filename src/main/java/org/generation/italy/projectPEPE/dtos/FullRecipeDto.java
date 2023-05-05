@@ -18,7 +18,7 @@ public class FullRecipeDto {
     private String difficulty;
     private String diet;
     private String dish;
-    private String totalCost; // ?????????
+    private String totalCost;
     private Set<String> ingredients;
 
 //    public FullRecipeDto(long id, String name, String description, String toCook, String imageFilePath, double totNutritionalValue,
@@ -58,25 +58,25 @@ public class FullRecipeDto {
         return new FullRecipeDto(recipe.getId(), recipe.getName(), recipe.getDescription(), checkIsToCook(recipe.getToCook()),
                 recipe.getImageFilePath(), recipe.getTotNutritionalValue(), recipe.getTotPreparationTime(),
                 recipe.getDifficulty().getDifficultyName(), recipe.getDiet().getDietName(), recipe.getDish().getDishName(),
-                calculateAvgCost(recipe.getIngredients()), getIngredientsName(recipe.getIngredients()));
+                calculateAvgCost(recipe.getIngredients()).toString(), getIngredientsName(recipe.getIngredients()));
     }
 
     private static Set<String> getIngredientsName(Set<Ingredient> ingredients){
         return ingredients.stream().map(e -> e.getFood().getName()).collect(Collectors.toSet());
     }
 
-    private static String calculateAvgCost(Set<Ingredient> ingredients){
+    private static AvgCost calculateAvgCost(Set<Ingredient> ingredients){
         double avg;
         int total = 0;
         for(Ingredient f : ingredients){
             if(f.getFood().getAvgCost().equals(AvgCost.EXOTIC)){
-                return AvgCost.EXOTIC.toString();
+                return AvgCost.EXOTIC;
             }
             total += f.getFood().getAvgCost().getCostLevel();
         }
-        avg = total / ingredients.size();
+        avg = (float)total / ingredients.size();
 
-        return AvgCost.getEnumByValue(avg).toString();
+        return AvgCost.getEnumByValue(avg);
     }
 
     private static String checkIsToCook(boolean toCook){
@@ -148,13 +148,13 @@ public class FullRecipeDto {
     }
 
     public String getTotalCost() {
-        if(totalCost.equals("LOW")){
+        if (totalCost.equals(AvgCost.LOW.toString())){
             return "basso";
-        } if(totalCost.equals("MEDIUM")){
+        } if (totalCost.equals(AvgCost.MEDIUM.toString())){
             return "medio";
-        } if(totalCost.equals("HIGH")){
+        } if(totalCost.equals(AvgCost.HIGH.toString())){
             return "alto";
-        } if(totalCost.equals("EXOTIC")){
+        } if(totalCost.equals(AvgCost.EXOTIC.toString())){
             return "esotico";
         }
         return totalCost;

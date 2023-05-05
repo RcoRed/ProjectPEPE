@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Set;
 
-public interface AbstractRecipeRepository extends JpaRepository<Recipe, Long> {
+public interface AbstractRecipeRepository extends JpaRepository<Recipe, Long>, AbstractRecipeRepositoryCustom{
     Iterable<Recipe> findByNameContainsIgnoreCase(String name);
 
     Iterable<Recipe> findByDiet(Diet diet);
