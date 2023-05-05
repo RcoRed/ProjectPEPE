@@ -16,21 +16,22 @@ public class AbstractRecipeRepositoryCustomImpl implements AbstractRecipeReposit
     private EntityManager entityManager;
 
     @Override
-    public Iterable<Recipe> findRecipeByFilters(Diet diet, Difficulty difficulty, Boolean isToCook, String name) {
-        StringBuilder queryPart = new StringBuilder("from Recipe r");
+    public Iterable<Recipe> findRecipeByFilters(Diet diet, Difficulty difficulty, Boolean isToCook, String name, Long idPerson) {
+        StringBuilder queryPart = new StringBuilder("from Recipe r ");
         boolean isFirstCondition = true;
+        if(idPerson != null){
+            isFirstCondition = false;
+            queryPart.append("where r.id NOT IN " +
+                    "(SELECT i.recipe FROM AvoidingFood af JOIN af.person p JOIN Ingredient i ON af.food = i.food WHERE p.id = ").append(idPerson).append(")");
+        }
         if (diet != null) {
             if (isFirstCondition) {
                 isFirstCondition = false;
-                queryPart.append(" where");
+                queryPart.append(" where ");
+            } else {
+                queryPart.append(" and ");
             }
-            if (diet.equals(Diet.VEGAN)) {
-                queryPart.append(" r.diet = 'VEGAN'");
-            } else if (diet.equals(Diet.VEGETARIAN)) {
-                queryPart.append(" r.diet = 'VEGETARIAN'");
-            } else if (diet.equals(Diet.OMNIVOROUS)) {
-                queryPart.append(" r.diet = 'OMNIVOROUS'");
-            }
+            queryPart.append("r.diet = '").append(diet.toString()).append("'");
         }
 
         if (difficulty != null) {
@@ -40,13 +41,7 @@ public class AbstractRecipeRepositoryCustomImpl implements AbstractRecipeReposit
             } else{
                 queryPart.append(" and ");
             }
-            if (difficulty.equals(Difficulty.LOW)) {
-                queryPart.append(" r.difficulty = 'LOW'");
-            } else if (difficulty.equals(Difficulty.MEDIUM)) {
-                queryPart.append(" r.difficulty = 'MEDIUM'");
-            } else if (difficulty.equals(Difficulty.HIGH)) {
-                queryPart.append(" r.difficulty = 'HIGH'");
-            }
+            queryPart.append("r.difficulty = '").append(difficulty.toString()).append("'");
         }
 
         if (isToCook != null) {
