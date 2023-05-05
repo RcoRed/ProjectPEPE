@@ -64,7 +64,7 @@ public class RecipeController {
             return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
         }
         System.out.println("alalalalalalaalal" + diet + difficulty + toCook);
-        result = service.findRecipeByFilters(diet, difficulty, toCook, namePart); // metodo della morte
+        result = service.findRecipeByFilters(diet, difficulty, toCook, namePart, null); // metodo della morte
         return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
     }
 }
