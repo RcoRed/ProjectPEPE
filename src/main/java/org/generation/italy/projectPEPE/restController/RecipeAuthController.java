@@ -47,7 +47,6 @@ public class RecipeAuthController {
                                                                    @RequestParam(required = false) Difficulty difficulty,
                                                                    @RequestParam(required = false) Boolean toCook,
                                                                    @RequestParam(required = false) Long idPerson){
-        System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
         Iterable<Recipe> result;
         if(person != null){
             result = service.findByPersonDiet(person);
@@ -57,8 +56,6 @@ public class RecipeAuthController {
             result = service.findByDish(dish);
             return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
         }
-        System.out.println("alalalalalalaalal" + diet + difficulty + toCook);
-        System.out.println("ssssssssssssssssssssssssssssss" + idPerson);
         result = service.findRecipeByFilters(diet, difficulty, toCook, namePart, idPerson); // metodo della morte
         return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
     }

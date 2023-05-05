@@ -58,6 +58,7 @@ public class AbstractRecipeRepositoryCustomImpl implements AbstractRecipeReposit
             }
         }
 
+        System.out.println("nome: " + name);
         if (name != null){
             if(isFirstCondition){
                 isFirstCondition = false;
@@ -65,8 +66,9 @@ public class AbstractRecipeRepositoryCustomImpl implements AbstractRecipeReposit
             } else{
                 queryPart.append(" and ");
             }
-            queryPart.append("r.name like %").append(name).append("%");
+            queryPart.append("lower(r.name) like '%").append(name.toLowerCase()).append("%'");
         }
+        System.out.println(queryPart);
         TypedQuery<Recipe> query = entityManager.createQuery(queryPart.toString(), Recipe.class);
         return query.getResultList();
     }
