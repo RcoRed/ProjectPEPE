@@ -1,5 +1,6 @@
 package org.generation.italy.projectPEPE.restController;
 
+import com.fasterxml.jackson.databind.ser.std.IterableSerializer;
 import org.generation.italy.projectPEPE.dtos.FullRecipeDto;
 import org.generation.italy.projectPEPE.dtos.SimpleRecipeDto;
 import org.generation.italy.projectPEPE.model.entities.Ingredient;
@@ -47,43 +48,23 @@ public class RecipeController {
     }
 
     @GetMapping()
-    public ResponseEntity<Iterable<SimpleRecipeDto>> recipeGeneral(@RequestParam(required = false) String recipeName,
+    public ResponseEntity<Iterable<SimpleRecipeDto>> recipeGeneral(@RequestParam(required = false) String namePart,
                                                                    @RequestParam(required = false) Diet diet,
                                                                    @RequestParam(required = false) Dish dish,
                                                                    @RequestParam(required = false) Person person,
                                                                    @RequestParam(required = false) Difficulty difficulty,
-                                                                   @RequestParam(required = false) Boolean toCook,
-                                                                   @RequestParam(required = false) Integer nPage,
-                                                                   @RequestParam(required = false) Integer nRecipes){
+                                                                   @RequestParam(required = false) Boolean toCook){
         Iterable<Recipe> result;
-        if (recipeName != null){
-            result = service.findByNameContains(recipeName);
-            return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
-        }
-        if(diet != null){
-            result = service.findByDiet(diet);
-            return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
-        }
         if(person != null){
             result = service.findByPersonDiet(person);
-            return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
-        }
-        if(difficulty != null){
-            result = service.findByDifficulty(difficulty);
             return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
         }
         if(dish != null){
             result = service.findByDish(dish);
             return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
         }
-        if(toCook != null){
-            result = service.findByToCook(toCook);
-            return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
-        }
-        if(nPage != null && nRecipes != null){
-            result = service.findAll(nPage,nRecipes);
-            return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
-        }
-        return ResponseEntity.badRequest().build();
+        System.out.println("alalalalalalaalal" + diet + difficulty + toCook);
+        result = service.findRecipeByFilters(diet, difficulty, toCook, namePart, null); // metodo della morte
+        return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
     }
 }

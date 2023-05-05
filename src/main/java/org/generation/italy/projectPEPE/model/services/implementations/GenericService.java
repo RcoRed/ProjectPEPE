@@ -132,4 +132,9 @@ public class GenericService implements AbstractGenericService {
         return storageRecipes;
     }
 
+    @Override
+    public Iterable<Recipe> findRecipeByFilters(Diet diet, Difficulty difficulty, Boolean isToCook, String name, Long idPerson) {
+        return recipeRepo.findRecipeByFilters(diet, difficulty, isToCook, name, idPerson);
+    }
+
 }

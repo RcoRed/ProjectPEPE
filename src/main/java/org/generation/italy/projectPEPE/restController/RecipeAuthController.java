@@ -3,6 +3,9 @@ package org.generation.italy.projectPEPE.restController;
 import org.generation.italy.projectPEPE.dtos.SimpleRecipeDto;
 import org.generation.italy.projectPEPE.model.entities.Person;
 import org.generation.italy.projectPEPE.model.entities.Recipe;
+import org.generation.italy.projectPEPE.model.entities.enums.Diet;
+import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
+import org.generation.italy.projectPEPE.model.entities.enums.Dish;
 import org.generation.italy.projectPEPE.model.services.abstractions.AbstractGenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +26,7 @@ public class RecipeAuthController {
     }
 
     @GetMapping("/foodstorage")
-    public ResponseEntity<Iterable<SimpleRecipeDto>> findRecipeByFoodStorageOfPerson(@RequestParam(required = false) Long idPerson){
+    public ResponseEntity<Iterable<SimpleRecipeDto>> findRecipeByFoodStorageOfPerson(@RequestParam Long idPerson){
         Iterable<Recipe> result;
         if (idPerson != null){
             Optional<Person> optionalPerson = service.findPersonById(idPerson);
@@ -34,5 +37,29 @@ public class RecipeAuthController {
             }
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping()
+    public ResponseEntity<Iterable<SimpleRecipeDto>> recipeGeneral(@RequestParam(required = false) String namePart,
+                                                                   @RequestParam(required = false) Diet diet,
+                                                                   @RequestParam(required = false) Dish dish,
+                                                                   @RequestParam(required = false) Person person,
+                                                                   @RequestParam(required = false) Difficulty difficulty,
+                                                                   @RequestParam(required = false) Boolean toCook,
+                                                                   @RequestParam(required = false) Long idPerson){
+        System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+        Iterable<Recipe> result;
+        if(person != null){
+            result = service.findByPersonDiet(person);
+            return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
+        }
+        if(dish != null){
+            result = service.findByDish(dish);
+            return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
+        }
+        System.out.println("alalalalalalaalal" + diet + difficulty + toCook);
+        System.out.println("ssssssssssssssssssssssssssssss" + idPerson);
+        result = service.findRecipeByFilters(diet, difficulty, toCook, namePart, idPerson); // metodo della morte
+        return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
     }
 }
