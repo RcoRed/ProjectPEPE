@@ -6,6 +6,7 @@ import jakarta.persistence.TypedQuery;
 import org.generation.italy.projectPEPE.model.entities.Recipe;
 import org.generation.italy.projectPEPE.model.entities.enums.Diet;
 import org.generation.italy.projectPEPE.model.entities.enums.Difficulty;
+import org.generation.italy.projectPEPE.model.entities.enums.Dish;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class AbstractRecipeRepositoryCustomImpl implements AbstractRecipeReposit
     private EntityManager entityManager;
 
     @Override
-    public Iterable<Recipe> findRecipeByFilters(Diet diet, Difficulty difficulty, Boolean isToCook, String name, Long idPerson) {
+    public Iterable<Recipe> findRecipeByFilters(Diet diet, Difficulty difficulty, Boolean isToCook, String name, Dish dish, Long idPerson) {
         StringBuilder queryPart = new StringBuilder("from Recipe r ");
         boolean isFirstCondition = true;
         if(idPerson != null){
@@ -24,6 +25,17 @@ public class AbstractRecipeRepositoryCustomImpl implements AbstractRecipeReposit
             queryPart.append("where r.id NOT IN " +
                     "(SELECT i.recipe FROM AvoidingFood af JOIN af.person p JOIN Ingredient i ON af.food = i.food WHERE p.id = ").append(idPerson).append(")");
         }
+
+        if (dish != null) {
+            if (isFirstCondition) {
+                isFirstCondition = false;
+                queryPart.append(" where ");
+            } else {
+                queryPart.append(" and ");
+            }
+            queryPart.append("r.dish = '").append(dish.toString()).append("'");
+        }
+
         if (diet != null) {
             if (isFirstCondition) {
                 isFirstCondition = false;

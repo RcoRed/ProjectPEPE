@@ -52,11 +52,7 @@ public class RecipeAuthController {
             result = service.findByPersonDiet(person);
             return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
         }
-        if(dish != null){
-            result = service.findByDish(dish);
-            return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
-        }
-        result = service.findRecipeByFilters(diet, difficulty, toCook, namePart, idPerson); // metodo della morte
+        result = service.findRecipeByFilters(diet, difficulty, toCook, namePart, dish, idPerson); // metodo della morte
         return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
     }
 }

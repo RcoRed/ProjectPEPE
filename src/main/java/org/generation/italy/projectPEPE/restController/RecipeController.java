@@ -59,12 +59,8 @@ public class RecipeController {
             result = service.findByPersonDiet(person);
             return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
         }
-        if(dish != null){
-            result = service.findByDish(dish);
-            return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
-        }
         System.out.println("alalalalalalaalal" + diet + difficulty + toCook);
-        result = service.findRecipeByFilters(diet, difficulty, toCook, namePart, null); // metodo della morte
+        result = service.findRecipeByFilters(diet, difficulty, toCook, namePart, dish, null); // metodo della morte
         return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
     }
 }
