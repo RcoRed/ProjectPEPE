@@ -37,5 +37,5 @@ public interface AbstractGenericService {
 
     Iterable<Recipe> findRecipeByFoodStorageOfPerson(Person person);
 
-    Iterable<Recipe> findRecipeByFilters(Diet diet, Difficulty difficulty, Boolean isToCook, String name,Dish dish, Long idPerson);
+    Iterable<Recipe> findRecipeByFilters(Diet diet, Difficulty difficulty, Boolean isToCook, String name, Dish dish, Long idPerson, Integer nPage, Integer nRecipes);
 }

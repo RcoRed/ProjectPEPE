@@ -17,7 +17,7 @@ public class AbstractRecipeRepositoryCustomImpl implements AbstractRecipeReposit
     private EntityManager entityManager;
 
     @Override
-    public Iterable<Recipe> findRecipeByFilters(Diet diet, Difficulty difficulty, Boolean isToCook, String name, Dish dish, Long idPerson) {
+    public Iterable<Recipe> findRecipeByFilters(Diet diet, Difficulty difficulty, Boolean isToCook, String name, Dish dish, Long idPerson, Integer nPage, Integer nRecipes) {
         StringBuilder queryPart = new StringBuilder("from Recipe r ");
         boolean isFirstCondition = true;
         if(idPerson != null){
@@ -80,8 +80,14 @@ public class AbstractRecipeRepositoryCustomImpl implements AbstractRecipeReposit
             }
             queryPart.append("lower(r.name) like '%").append(name.toLowerCase()).append("%'");
         }
+
         System.out.println(queryPart);
         TypedQuery<Recipe> query = entityManager.createQuery(queryPart.toString(), Recipe.class);
+
+        if (nPage != null && nRecipes != null){
+            query.setFirstResult(nPage * nRecipes);
+            query.setMaxResults(nRecipes);
+        }
         return query.getResultList();
     }
 }

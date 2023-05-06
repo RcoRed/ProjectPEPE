@@ -46,13 +46,15 @@ public class RecipeAuthController {
                                                                    @RequestParam(required = false) Person person,
                                                                    @RequestParam(required = false) Difficulty difficulty,
                                                                    @RequestParam(required = false) Boolean toCook,
-                                                                   @RequestParam(required = false) Long idPerson){
+                                                                   @RequestParam(required = false) Long idPerson,
+                                                                   @RequestParam(required = false) Integer nPage,
+                                                                   @RequestParam(required = false) Integer nRecipes){
         Iterable<Recipe> result;
         if(person != null){
             result = service.findByPersonDiet(person);
             return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
         }
-        result = service.findRecipeByFilters(diet, difficulty, toCook, namePart, dish, idPerson); // metodo della morte
+        result = service.findRecipeByFilters(diet, difficulty, toCook, namePart, dish, idPerson, nPage, nRecipes); // metodo della morte
         return ResponseEntity.ok().body(SimpleRecipeDto.fromEntityIterator(result));
     }
 }
