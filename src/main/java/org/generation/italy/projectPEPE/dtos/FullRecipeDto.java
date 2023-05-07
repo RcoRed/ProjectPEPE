@@ -62,7 +62,7 @@ public class FullRecipeDto {
     }
 
     private static Set<String> getIngredientsName(Set<Ingredient> ingredients){
-        return ingredients.stream().map(e -> e.getFood().getName()).collect(Collectors.toSet());
+        return ingredients.stream().map(e -> e.getFood().getName() + (e.isOptional() ? " ( Opzionale ) " : "")).collect(Collectors.toSet());
     }
 
     private static AvgCost calculateAvgCost(Set<Ingredient> ingredients){
